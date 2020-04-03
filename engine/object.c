@@ -31,7 +31,7 @@ void loadObjects() {
                     return;
                 }
 
-                //LEGACY CODE DO NOT TOUCH OR I WILL SACRIFICE YOU TO THE OL' GODS! IT WORKS AS IT IS SUPPOSED TO BE !DO NEVER QUESTION IT!
+                //Resizes array to get object count
                 if(arrayReader == 0){
                     placeHolderObjectList = malloc(sizeof(struct PlaceHolderObject));
                 }
@@ -39,12 +39,24 @@ void loadObjects() {
                     placeHolderObjectList = realloc(placeHolderObjectList, (arrayReader + 1) * sizeof(struct PlaceHolderObject));
                 }
 
+                //Reads line by line the file and sets the appropriate structure arguments
                 while(fgets(line, len, tmpFile) != NULL) {
                     if(lineReader == 0) {
                         struct PlaceHolderObject tmpObject;
                         tmpObject.name = line;
                         placeHolderObjectList[arrayReader] = &tmpObject;
-                    } else if(lineReader == 1) {
+                    }
+                    else if(lineReader == 1) {
+                        int number = 0;
+                        sscanf(line, "%d", &number);
+                        placeHolderObjectList[arrayReader]->type = number;
+                    }
+                    else if(lineReader == 2) {
+                        int number = 0;
+                        sscanf(line, "%d", &number);
+                        placeHolderObjectList[arrayReader]->textureType = number;
+                    }
+                    else if(lineReader == 3) {
                         int number = 0;
                         sscanf(line, "%d", &number);
                         placeHolderObjectList[arrayReader]->modelType = number;
