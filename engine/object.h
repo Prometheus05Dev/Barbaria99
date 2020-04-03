@@ -47,6 +47,8 @@ void getConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Wind
 
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 
-void freeObjects();
+void loadOBJ(const char* path); //Loads OBJ file, to be called by loadObjects
+
+void freeObjects(); //Frees manually allocated memory
 
 #endif //BARBARIA99_GAMEOBJECT_H

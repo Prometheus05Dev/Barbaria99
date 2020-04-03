@@ -60,10 +60,12 @@ void loadObjects() {
                         int number = 0;
                         sscanf(line, "%d", &number);
                         placeHolderObjectList[arrayReader]->modelType = number;
+                        printf("%d %d\n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
                     }
                     lineReader = lineReader + 1;
                 }
                 free(line);
+                lineReader = 0;
                 arrayReader = arrayReader + 1;
             }
         }
@@ -80,7 +82,7 @@ void loadObjects() {
     if ((modelDir = opendir(modelDirectory)) != NULL) {
         while ((modelDirEntry = readdir(modelDir)) != NULL) {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
-                printf("%s\n", modelDirEntry->d_name);
+                printf("%d %d \n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
                 arrayReader = arrayReader + 1;
             }
         }
@@ -94,6 +96,10 @@ void loadObjects() {
     free(configDirectory);
 }
 
+
+void loadOBJ(const char* path) {
+
+}
 
 void freeObjects() {
     free(configPath);
