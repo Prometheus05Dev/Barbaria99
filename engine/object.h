@@ -47,7 +47,7 @@ void getConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Wind
 
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 
-void loadOBJ(const char* path); //Loads OBJ file, to be called by loadObjects
+void loadPMF(const char* path); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
 
 void freeObjects(); //Frees manually allocated memory
 

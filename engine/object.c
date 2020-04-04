@@ -61,6 +61,7 @@ void loadObjects() {
                         sscanf(line, "%d", &number);
                         placeHolderObjectList[arrayReader]->modelType = number;
                         printf("%d %d\n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
+                        printf("%d\n", arrayReader);
                     }
                     lineReader = lineReader + 1;
                 }
@@ -97,7 +98,7 @@ void loadObjects() {
 }
 
 
-void loadOBJ(const char* path) {
+void loadPMF(const char* path) {
 
 }
 
