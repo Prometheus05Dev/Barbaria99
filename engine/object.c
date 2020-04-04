@@ -20,13 +20,13 @@ void loadObjects() {
     //Reads all the config files to fill in the GameObject structs
     DIR *configDir;
     struct dirent *configDirEntry;
-    if ((configDir = opendir (configDirectory)) != NULL) {
-        while ((configDirEntry = readdir (configDir)) != NULL) {
+    if ((configDir = opendir (configDirectory))) {
+        while ((configDirEntry = readdir (configDir))) {
             if(strcmp(configDirEntry->d_name, ".") && strcmp(configDirEntry->d_name, "..")){
                 FILE *tmpFile = fopen(combineStrings(configDirectory, configDirEntry->d_name), "r");
                 size_t len = 255;
                 char *line = malloc(sizeof(char) * len);
-                if(tmpFile == NULL){
+                if(!tmpFile){
                     printf("%s %s \n", "Could not read file:", configDirEntry->d_name);
                     return;
                 }
@@ -40,7 +40,7 @@ void loadObjects() {
                 }
 
                 //Reads line by line the file and sets the appropriate structure arguments
-                while(fgets(line, len, tmpFile) != NULL) {
+                while(fgets(line, len, tmpFile)) {
                     if(lineReader == 0) {
                         struct PlaceHolderObject tmpObject;
                         tmpObject.name = line;
@@ -80,8 +80,8 @@ void loadObjects() {
     //Reads all the model files to fill in the GameObject structs
     DIR *modelDir;
     struct dirent *modelDirEntry;
-    if ((modelDir = opendir(modelDirectory)) != NULL) {
-        while ((modelDirEntry = readdir(modelDir)) != NULL) {
+    if ((modelDir = opendir(modelDirectory))) {
+        while((modelDirEntry = readdir(modelDir))) {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
                 printf("%d %d \n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
                 arrayReader = arrayReader + 1;
