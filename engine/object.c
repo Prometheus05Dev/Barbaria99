@@ -31,6 +31,8 @@ void loadObjects() {
                     return;
                 }
 
+                printf("%d\n", arrayReader);
+
                 //Resizes array to get object count
                 if(arrayReader == 0){
                     placeHolderObjectList = malloc(sizeof(struct PlaceHolderObject));
@@ -44,24 +46,22 @@ void loadObjects() {
                     if(lineReader == 0) {
                         struct PlaceHolderObject tmpObject;
                         tmpObject.name = line;
-                        placeHolderObjectList[arrayReader] = &tmpObject;
+                        placeHolderObjectList[arrayReader] = tmpObject;
                     }
                     else if(lineReader == 1) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader]->type = number;
+                        placeHolderObjectList[arrayReader].type = number;
                     }
                     else if(lineReader == 2) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader]->textureType = number;
+                        placeHolderObjectList[arrayReader].textureType = number;
                     }
                     else if(lineReader == 3) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader]->modelType = number;
-                        printf("%d %d\n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
-                        printf("%d\n", arrayReader);
+                        placeHolderObjectList[arrayReader].modelType = number;
                     }
                     lineReader = lineReader + 1;
                 }
@@ -83,7 +83,7 @@ void loadObjects() {
     if ((modelDir = opendir(modelDirectory))) {
         while((modelDirEntry = readdir(modelDir))) {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
-                printf("%d %d \n", placeHolderObjectList[arrayReader]->modelType, arrayReader);
+                printf("%d %d \n", placeHolderObjectList[arrayReader].modelType, arrayReader);
                 arrayReader = arrayReader + 1;
             }
         }

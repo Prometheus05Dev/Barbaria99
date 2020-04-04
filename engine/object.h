@@ -38,7 +38,7 @@ struct PlaceHolderObject {
     unsigned int numIndices;
 };
 
-struct PlaceHolderObject **placeHolderObjectList; /*Array for game objects to access their placeholder and move it to
+struct PlaceHolderObject *placeHolderObjectList; /*Array for game objects to access their placeholder and move it to
                                                     proper direction */
 
 char *configPath;
