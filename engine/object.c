@@ -16,6 +16,7 @@ void loadObjects() {
 
     int arrayReader = 0;
     int lineReader = 0;
+    numObjects = 0;
 
     //Reads all the config files to fill in the GameObject structs
     DIR *configDir;
@@ -31,8 +32,6 @@ void loadObjects() {
                     return;
                 }
 
-                printf("%d\n", arrayReader);
-
                 //Resizes array to get object count
                 if(arrayReader == 0){
                     placeHolderObjectList = malloc(sizeof(struct PlaceHolderObject));
@@ -43,31 +42,34 @@ void loadObjects() {
 
                 //Reads line by line the file and sets the appropriate structure arguments
                 while(fgets(line, len, tmpFile)) {
+                    struct PlaceHolderObject tmpObject;
                     if(lineReader == 0) {
-                        struct PlaceHolderObject tmpObject;
-                        tmpObject.name = line;
-                        placeHolderObjectList[arrayReader] = tmpObject;
+                        const char* name;
+                        sscanf(line, "%s", &name);
+                        tmpObject.name = name;
                     }
                     else if(lineReader == 1) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader].type = number;
+                        tmpObject.type = number;
                     }
                     else if(lineReader == 2) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader].textureType = number;
+                        tmpObject.textureType = number;
                     }
                     else if(lineReader == 3) {
                         int number = 0;
                         sscanf(line, "%d", &number);
-                        placeHolderObjectList[arrayReader].modelType = number;
+                        tmpObject.modelType = number;
                     }
                     lineReader = lineReader + 1;
+                    placeHolderObjectList[arrayReader] = tmpObject;
                 }
                 free(line);
                 lineReader = 0;
                 arrayReader = arrayReader + 1;
+                numObjects = numObjects + 1;
             }
         }
         closedir (configDir);
@@ -83,7 +85,12 @@ void loadObjects() {
     if ((modelDir = opendir(modelDirectory))) {
         while((modelDirEntry = readdir(modelDir))) {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
-                printf("%d %d \n", placeHolderObjectList[arrayReader].modelType, arrayReader);
+                for(int i = 0; i < numObjects; i++) {
+                    printf("%s \n", &placeHolderObjectList[i].name);
+                    if(strncmp(modelDirEntry->d_name, &placeHolderObjectList[i].name, strlen(&placeHolderObjectList[i].name)) == 0) {
+                        loadPMF(modelDirEntry->d_name, i);
+                    }
+                }
                 arrayReader = arrayReader + 1;
             }
         }
@@ -98,8 +105,8 @@ void loadObjects() {
 }
 
 
-void loadPMF(const char* path) {
-
+void loadPMF(const char* path, int objectNumber) {
+    printf("%s %d \n", path, objectNumber);
 }
 
 void freeObjects() {
