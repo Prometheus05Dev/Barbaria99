@@ -106,6 +106,7 @@ void loadObjects() {
 
 void loadPMF(char* path, int objectNumber) {
     printf("Loading object: %s with number: %d \n", path, objectNumber);
+
     int lineCounter = 0;
     FILE *pmfFile;
     char* currentLine;
@@ -116,32 +117,40 @@ void loadPMF(char* path, int objectNumber) {
     int numVertices = 0;
     int currentIndex;
     int linePosition = 0;
+
     pmfFile = fopen(path, "r");
     int loadMode; //0 = Vertices 1 = Indices
     if(!pmfFile) {
         printf("The file: %s could not be opened!", path);
         return;
     }
+
     while((read = getline(&currentLine, &length, pmfFile)) != -1) {
         lineCounter++;
+
         if(strncmp(currentLine, "Vertices", 8) == 0) {
             placeHolderObjectList[objectNumber].vertices = malloc(0 * sizeof(struct Vertex));
             loadMode = 0;
             continue;
         }
+
         if(strncmp(currentLine, "Indices", 7) == 0) {
             placeHolderObjectList[objectNumber].indices = malloc(0 * sizeof(unsigned int));
             loadMode = 1;
             continue;
         }
+
         else{
             if(loadMode == 0){
                 ++numVertices;
+
                 placeHolderObjectList[objectNumber].vertices = realloc(placeHolderObjectList[objectNumber].vertices, numVertices *
                         sizeof(*placeHolderObjectList[objectNumber].vertices));
+
                 char delimiter[] = " ";
                 char *lineWords = strtok(currentLine, delimiter);
                 struct Vertex tempVertex;
+
                 while(lineWords){
                     float vertexAsNumber = atof(lineWords);
                     switch(linePosition){
@@ -172,19 +181,24 @@ void loadPMF(char* path, int objectNumber) {
                         default:
                             break;
                     }
+
                     ++linePosition;
                     lineWords = strtok(NULL, delimiter);
                 }
+
                 linePosition = 0;
                 placeHolderObjectList[objectNumber].vertices[numVertices-1] = tempVertex;
             }
+
             else if(loadMode == 1){
                 numIndices++;
                 sscanf(currentLine, "%d", &currentIndex);
+
                 placeHolderObjectList[objectNumber].indices = realloc(placeHolderObjectList[objectNumber].indices, numIndices *
                         sizeof(*placeHolderObjectList[objectNumber].indices));
                 placeHolderObjectList[objectNumber].indices[numIndices-1] = currentIndex;
             }
+
             else {
                 printf("A weird bug occurred at line 136 of object.c");
                 return;
@@ -192,8 +206,15 @@ void loadPMF(char* path, int objectNumber) {
         }
     }
     placeHolderObjectList[objectNumber].numIndices = numIndices;
+    constructOpenGLData(objectNumber);
     free(path);
 }
+
+
+void constructOpenGLData(int objectNumber) {
+    printf("Constructing object: %s", &placeHolderObjectList[objectNumber].name);
+}
+
 
 void freeObjects() {
     free(configPath);
