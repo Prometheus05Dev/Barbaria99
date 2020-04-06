@@ -192,7 +192,7 @@ void loadPMF(char* path, int objectNumber) {
 
             else if(loadMode == 1){
                 numIndices++;
-                sscanf(currentLine, "%d", &currentIndex);
+                sscanf(currentLine, "%u", &currentIndex);
 
                 placeHolderObjectList[objectNumber].indices = realloc(placeHolderObjectList[objectNumber].indices, numIndices *
                         sizeof(*placeHolderObjectList[objectNumber].indices));
