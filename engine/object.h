@@ -28,7 +28,7 @@ struct PlaceHolderObject {
     const char *name; //Name of Object to get texture path and model path.
     int type; //Building or Entity
     int textureType; //PNG or JPG,...
-    int modelType;  //OBJ or DAE,...
+    int modelType;  //PMF OR EAF
     //OpenGL data
     unsigned int VAO;
     unsigned int VBO;

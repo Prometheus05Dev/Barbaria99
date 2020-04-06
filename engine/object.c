@@ -113,6 +113,7 @@ void loadPMF(char* path, int objectNumber) {
     ssize_t read;
     struct Vertex currentVertex;
     int numIndices = 0;
+    int numVertices = 0;
     int currentIndex;
     int linePosition = 0;
     pmfFile = fopen(path, "r");
@@ -124,6 +125,7 @@ void loadPMF(char* path, int objectNumber) {
     while((read = getline(&currentLine, &length, pmfFile)) != -1) {
         lineCounter++;
         if(strncmp(currentLine, "Vertices", 8) == 0) {
+            placeHolderObjectList[objectNumber].vertices = malloc(0 * sizeof(struct Vertex));
             loadMode = 0;
             continue;
         }
@@ -134,6 +136,9 @@ void loadPMF(char* path, int objectNumber) {
         }
         else{
             if(loadMode == 0){
+                ++numVertices;
+                placeHolderObjectList[objectNumber].vertices = realloc(placeHolderObjectList[objectNumber].vertices, numVertices *
+                        sizeof(*placeHolderObjectList[objectNumber].vertices));
                 char delimiter[] = " ";
                 char *lineWords = strtok(currentLine, delimiter);
                 struct Vertex tempVertex;
@@ -141,35 +146,27 @@ void loadPMF(char* path, int objectNumber) {
                     float vertexAsNumber = atof(lineWords);
                     switch(linePosition){
                         case 0:
-                            printf("Vertex-X: %f \n", vertexAsNumber);
                             tempVertex.x = vertexAsNumber;
                             break;
                         case 1:
-                            printf("Vertex-Y: %f \n", vertexAsNumber);
                             tempVertex.y = vertexAsNumber;
                             break;
                         case 2:
-                            printf("Vertex-Z: %f \n", vertexAsNumber);
                             tempVertex.z = vertexAsNumber;
                             break;
                         case 3:
-                            printf("Normal-X: %f \n", vertexAsNumber);
                             tempVertex.normalX = vertexAsNumber;
                             break;
                         case 4:
-                            printf("Normal-Y: %f \n", vertexAsNumber);
                             tempVertex.normalY = vertexAsNumber;
                             break;
                         case 5:
-                            printf("Normal-Z: %f \n", vertexAsNumber);
                             tempVertex.normalZ = vertexAsNumber;
                             break;
                         case 6:
-                            printf("Texture-X: %f \n", vertexAsNumber);
                             tempVertex.textureX = vertexAsNumber;
                             break;
                         case 7:
-                            printf("Texture-Y: %f \n", vertexAsNumber);
                             tempVertex.textureY = vertexAsNumber;
                             break;
                         default:
@@ -179,6 +176,7 @@ void loadPMF(char* path, int objectNumber) {
                     lineWords = strtok(NULL, delimiter);
                 }
                 linePosition = 0;
+                placeHolderObjectList[objectNumber].vertices[numVertices-1] = tempVertex;
             }
             else if(loadMode == 1){
                 numIndices++;
