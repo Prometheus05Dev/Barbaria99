@@ -114,6 +114,8 @@ void loadPMF(char* path, int objectNumber) {
     struct Vertex currentVertex;
     int numIndices = 0;
     int currentIndex;
+    int linePosition = 0;
+    int vertexAsNumber = 0;
     pmfFile = fopen(path, "r");
     int loadMode; //0 = Vertices 1 = Indices
     if(!pmfFile) {
@@ -124,14 +126,42 @@ void loadPMF(char* path, int objectNumber) {
         lineCounter++;
         if(strncmp(currentLine, "Vertices", 8) == 0) {
             loadMode = 0;
+            continue;
         }
         if(strncmp(currentLine, "Indices", 7) == 0) {
             placeHolderObjectList[objectNumber].indices = malloc(0 * sizeof(unsigned int));
             loadMode = 1;
+            continue;
         }
         else{
             if(loadMode == 0){
-
+                char delimiter[] = " ";
+                char *lineWords = strtok(currentLine, delimiter);
+                while(lineWords){
+                    sscanf(lineWords, "%f", &vertexAsNumber);
+                    switch(linePosition){
+                        case 0:
+                            printf("Vertex-X: %f \n", vertexAsNumber);
+                            printf("TEST OUTPUT: %s \n", lineWords);
+                        case 1:
+                            printf("Vertex-Y: %f \n", vertexAsNumber);
+                        case 2:
+                            printf("Vertex-Z: %f \n", vertexAsNumber);
+                        case 3:
+                            printf("Normal-X: %f \n", vertexAsNumber);
+                        case 4:
+                            printf("Normal-Y: %f \n", vertexAsNumber);
+                        case 5:
+                            printf("Normal-Z: %f \n", vertexAsNumber);
+                        case 6:
+                            printf("Texture-X: %f \n", vertexAsNumber);
+                        case 7:
+                            printf("Texture-Y: %f \n", vertexAsNumber);
+                    }
+                    ++linePosition;
+                    lineWords = strtok(NULL, delimiter);
+                }
+                linePosition = 0;
             }
             else if(loadMode == 1){
                 numIndices++;
@@ -147,7 +177,6 @@ void loadPMF(char* path, int objectNumber) {
         }
     }
     placeHolderObjectList[objectNumber].numIndices = numIndices;
-    printf("Test value: %d \n", numIndices);
     free(path);
 }
 
