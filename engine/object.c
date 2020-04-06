@@ -115,7 +115,6 @@ void loadPMF(char* path, int objectNumber) {
     int numIndices = 0;
     int currentIndex;
     int linePosition = 0;
-    int vertexAsNumber = 0;
     pmfFile = fopen(path, "r");
     int loadMode; //0 = Vertices 1 = Indices
     if(!pmfFile) {
@@ -137,26 +136,44 @@ void loadPMF(char* path, int objectNumber) {
             if(loadMode == 0){
                 char delimiter[] = " ";
                 char *lineWords = strtok(currentLine, delimiter);
+                struct Vertex tempVertex;
                 while(lineWords){
-                    sscanf(lineWords, "%f", &vertexAsNumber);
+                    float vertexAsNumber = atof(lineWords);
                     switch(linePosition){
                         case 0:
                             printf("Vertex-X: %f \n", vertexAsNumber);
-                            printf("TEST OUTPUT: %s \n", lineWords);
+                            tempVertex.x = vertexAsNumber;
+                            break;
                         case 1:
                             printf("Vertex-Y: %f \n", vertexAsNumber);
+                            tempVertex.y = vertexAsNumber;
+                            break;
                         case 2:
                             printf("Vertex-Z: %f \n", vertexAsNumber);
+                            tempVertex.z = vertexAsNumber;
+                            break;
                         case 3:
                             printf("Normal-X: %f \n", vertexAsNumber);
+                            tempVertex.normalX = vertexAsNumber;
+                            break;
                         case 4:
                             printf("Normal-Y: %f \n", vertexAsNumber);
+                            tempVertex.normalY = vertexAsNumber;
+                            break;
                         case 5:
                             printf("Normal-Z: %f \n", vertexAsNumber);
+                            tempVertex.normalZ = vertexAsNumber;
+                            break;
                         case 6:
                             printf("Texture-X: %f \n", vertexAsNumber);
+                            tempVertex.textureX = vertexAsNumber;
+                            break;
                         case 7:
                             printf("Texture-Y: %f \n", vertexAsNumber);
+                            tempVertex.textureY = vertexAsNumber;
+                            break;
+                        default:
+                            break;
                     }
                     ++linePosition;
                     lineWords = strtok(NULL, delimiter);
