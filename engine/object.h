@@ -34,8 +34,8 @@ struct PlaceHolderObject {
     unsigned int VBO;
     unsigned int EBO;
     struct Vertex *vertices;
-    unsigned int *indices;
     unsigned int numIndices;
+    unsigned int *indices;
 };
 
 struct PlaceHolderObject *placeHolderObjectList; /*Array for game objects to access their placeholder and move it to
@@ -49,7 +49,7 @@ void getConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Wind
 
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 
-void loadPMF(const char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
+void loadPMF(char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
 
 void freeObjects(); //Frees manually allocated memory
 

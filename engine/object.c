@@ -86,9 +86,8 @@ void loadObjects() {
         while((modelDirEntry = readdir(modelDir))) {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
                 for(int i = 0; i < numObjects; i++) {
-                    printf("%s \n", &placeHolderObjectList[i].name);
                     if(strncmp(modelDirEntry->d_name, &placeHolderObjectList[i].name, strlen(&placeHolderObjectList[i].name)) == 0) {
-                        loadPMF(modelDirEntry->d_name, i);
+                        loadPMF(combineStrings(modelDirectory, modelDirEntry->d_name), i);
                     }
                 }
                 arrayReader = arrayReader + 1;
@@ -105,8 +104,51 @@ void loadObjects() {
 }
 
 
-void loadPMF(const char* path, int objectNumber) {
-    printf("%s %d \n", path, objectNumber);
+void loadPMF(char* path, int objectNumber) {
+    printf("Loading object: %s with number: %d \n", path, objectNumber);
+    int lineCounter = 0;
+    FILE *pmfFile;
+    char* currentLine;
+    size_t length = 0;
+    ssize_t read;
+    struct Vertex currentVertex;
+    int numIndices = 0;
+    int currentIndex;
+    pmfFile = fopen(path, "r");
+    int loadMode; //0 = Vertices 1 = Indices
+    if(!pmfFile) {
+        printf("The file: %s could not be opened!", path);
+        return;
+    }
+    while((read = getline(&currentLine, &length, pmfFile)) != -1) {
+        lineCounter++;
+        if(strncmp(currentLine, "Vertices", 8) == 0) {
+            loadMode = 0;
+        }
+        if(strncmp(currentLine, "Indices", 7) == 0) {
+            placeHolderObjectList[objectNumber].indices = malloc(0 * sizeof(unsigned int));
+            loadMode = 1;
+        }
+        else{
+            if(loadMode == 0){
+
+            }
+            else if(loadMode == 1){
+                numIndices++;
+                sscanf(currentLine, "%d", &currentIndex);
+                placeHolderObjectList[objectNumber].indices = realloc(placeHolderObjectList[objectNumber].indices, numIndices *
+                        sizeof(*placeHolderObjectList[objectNumber].indices));
+                placeHolderObjectList[objectNumber].indices[numIndices-1] = currentIndex;
+            }
+            else {
+                printf("A weird bug occurred at line 136 of object.c");
+                return;
+            }
+        }
+    }
+    placeHolderObjectList[objectNumber].numIndices = numIndices;
+    printf("Test value: %d \n", numIndices);
+    free(path);
 }
 
 void freeObjects() {
