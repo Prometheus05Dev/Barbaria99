@@ -5,8 +5,6 @@
 
 typedef enum { false, true } bool;
 
-bool shouldClose = false;
-
 //TODO: Object GL data construction
 //TODO: GameWindow implementation
 //TODO: Shader implementation
@@ -34,11 +32,13 @@ int main() {
 
     getConfigPath();
     loadObjects();
-    while(!shouldClose){
+    while(!glfwWindowShouldClose(mainWindow)){
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(mainWindow);
         glfwPollEvents();
+        if(glfwGetKey(mainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(mainWindow, true);
     }
     freeObjects();
     return 0;
