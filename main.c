@@ -41,8 +41,10 @@ int main() {
         if(glfwGetKey(mainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(mainWindow, true);
     }
+
     freeObjects();
     freePGL();
     freeShaders();
+
     return 0;
 }
