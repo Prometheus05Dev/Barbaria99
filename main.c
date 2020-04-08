@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "engine/object.h"
-#include <GL/glew.h>
+#include "engine/shader.h"
 #include <GLFW/glfw3.h>
 
 typedef enum { false, true } bool;
@@ -31,6 +31,8 @@ int main() {
 
     getConfigPath();
     loadObjects();
+    readShaderDir();
+
     while(!glfwWindowShouldClose(mainWindow)){
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -40,5 +42,7 @@ int main() {
             glfwSetWindowShouldClose(mainWindow, true);
     }
     freeObjects();
+    freePGL();
+    freeShaders();
     return 0;
 }

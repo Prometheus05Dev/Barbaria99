@@ -11,3 +11,7 @@ void getConfigPath() {
 #ifdef _WINDOWS
 #endif
 }
+
+void freePGL() {
+    free(configPath);
+}

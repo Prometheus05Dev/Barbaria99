@@ -1,6 +1,7 @@
 #include "object.h"
 
 void loadObjects() {
+
     char* modelDirectory = combineStrings(configPath, "/objects/models/");
     char* configDirectory = combineStrings(configPath, "/objects/configs/");
 
@@ -202,10 +203,9 @@ void loadPMF(char* path, int objectNumber) {
 
 
 void constructOpenGLData(int objectNumber) {
-    printf("Constructing object: %s", &placeHolderObjectList[objectNumber].name);
+    printf("Constructing object: %s\n", &placeHolderObjectList[objectNumber].name);
 }
 
 
 void freeObjects() {
-    free(configPath);
 }
