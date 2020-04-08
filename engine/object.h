@@ -4,6 +4,7 @@
 #include <elboronlib.h>
 #include <stdio.h>
 #include <dirent.h>
+#include <prometheusgamelib.h>
 
 #define _LINUX
 
@@ -12,7 +13,6 @@
 #endif
 
 #ifdef _LINUX
-#include <pwd.h>
 #include <zconf.h>
 #include <string.h>
 #include <stdlib.h>
@@ -42,10 +42,6 @@ struct PlaceHolderObject *placeHolderObjectList; /*Array for game objects to acc
                                                     proper direction */
 
 int numObjects; //Don't forget the index of numObjects starts at 1!
-
-char *configPath;
-
-void getConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Windows Application Data
 
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 

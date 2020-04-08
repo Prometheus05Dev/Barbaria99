@@ -6,7 +6,6 @@
 typedef enum { false, true } bool;
 
 //TODO: Object GL data construction
-//TODO: GameWindow implementation
 //TODO: Shader implementation
 
 int main() {

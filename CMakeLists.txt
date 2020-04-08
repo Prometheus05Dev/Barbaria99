@@ -8,4 +8,4 @@ include_directories(libs)
 add_compile_options("-lGL -lGLEW -lglfw -ldl -lX11 -lpthread -lXrandr -lXi")
 link_libraries("-lGL -lGLEW -lglfw -ldl -lX11 -lpthread -lXrandr -lXi")
 
-add_executable(Barbaria99 main.c engine/object.c game/gameobject.c libs/elboronlib.c)
+add_executable(Barbaria99 main.c engine/object.c game/gameobject.c libs/elboronlib.c libs/prometheusgamelib.c libs/prometheusgamelib.h)

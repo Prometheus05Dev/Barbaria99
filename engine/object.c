@@ -1,15 +1,5 @@
 #include "object.h"
 
-void getConfigPath() {
-#ifdef _LINUX
-    struct passwd *pw = getpwuid(getuid());
-    configPath = combineStrings(pw->pw_dir, "/.config/barbaria");
-#endif
-#ifdef _WINDOWS
-#endif
-}
-
-
 void loadObjects() {
     char* modelDirectory = combineStrings(configPath, "/objects/models/");
     char* configDirectory = combineStrings(configPath, "/objects/configs/");
