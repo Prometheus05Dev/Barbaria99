@@ -195,6 +195,7 @@ void loadPMF(char* path, int objectNumber) {
                 return;
             }
         }
+        placeHolderObjectList[objectNumber].numVertices = numVertices;
     }
     placeHolderObjectList[objectNumber].numIndices = numIndices;
     constructOpenGLData(objectNumber);
@@ -203,9 +204,28 @@ void loadPMF(char* path, int objectNumber) {
 
 
 void constructOpenGLData(int objectNumber) {
-    printf("Constructing object: %s\n", &placeHolderObjectList[objectNumber].name);
+    printf("Constructing object: %s with object number: %d\n", &placeHolderObjectList[objectNumber].name, objectNumber);
+    glGenVertexArrays(1, &placeHolderObjectList[objectNumber].VAO);
+    glGenBuffers(1, &placeHolderObjectList[objectNumber].VBO);
+    glGenBuffers(1, &placeHolderObjectList[objectNumber].EBO);
+    glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].VBO);
+    glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex), &placeHolderObjectList[objectNumber].vertices[0], GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numIndices * sizeof(unsigned int), &placeHolderObjectList[objectNumber].indices[0], GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, normalX));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
+    glEnableVertexAttribArray(2);
 }
 
+void drawObject(int objectNumber) {
+    glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].EBO);
+    glDrawElements(GL_TRIANGLES, placeHolderObjectList[objectNumber].numIndices, GL_UNSIGNED_INT, 0);
+}
 
 void freeObjects() {
 }

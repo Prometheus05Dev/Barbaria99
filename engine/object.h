@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <prometheusgamelib.h>
+#include <GL/glew.h>
 
 #define _LINUX
 
@@ -33,6 +34,7 @@ struct PlaceHolderObject {
     unsigned int VAO;
     unsigned int VBO;
     unsigned int EBO;
+    int numVertices;
     struct Vertex *vertices;
     unsigned int numIndices;
     unsigned int *indices;
@@ -48,6 +50,8 @@ void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 void loadPMF(char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
 
 void constructOpenGLData(int objectNumber);
+
+void drawObject(int objectNumber);
 
 void freeObjects(); //Frees manually allocated memory
 

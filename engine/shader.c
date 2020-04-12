@@ -51,12 +51,10 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
     while(fgets(buffer, bufferLength, filePointer)) {
         vertexShaderSource = combineStrings(vertexShaderSource, buffer);
     }
-    printf("Vertex: %s", vertexShaderSource);
     filePointer = fopen(fullFragmentShaderPath, "r");
     while(fgets(buffer, bufferLength, filePointer)) {
         fragmentShaderSource = combineStrings(fragmentShaderSource, buffer);
     }
-    printf("Fragment: %s", fragmentShaderSource);
     fclose(filePointer);
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);

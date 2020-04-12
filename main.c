@@ -32,11 +32,13 @@ int main() {
     getConfigPath();
     loadObjects();
     readShaderDir();
+    bindShader(1);
 
     while(!glfwWindowShouldClose(mainWindow)){
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(mainWindow);
+        drawObject(0);
         glfwPollEvents();
         if(glfwGetKey(mainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(mainWindow, true);
