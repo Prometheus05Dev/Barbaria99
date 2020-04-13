@@ -56,8 +56,10 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
         fragmentShaderSource = combineStrings(fragmentShaderSource, buffer);
     }
     fclose(filePointer);
+    const char *vsSource = vertexShaderSource;
+    const char *fsSource = fragmentShaderSource;
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vsSource, NULL);
     glCompileShader(vertexShader);
     int success;
     char infoLog[512];
@@ -69,7 +71,7 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
     }
     int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    glShaderSource(fragmentShader, 1,  &fragmentShaderSource, NULL);
+    glShaderSource(fragmentShader, 1,&fsSource, NULL);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
@@ -89,8 +91,6 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
     }
     shaderList[id - 1].id = id;
     shaderList[id - 1].shaderProgram = tempShader.shaderProgram;
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
     free(fullVertexShaderPath);
     free(fullFragmentShaderPath);
     free(vertexShaderSource);
@@ -98,6 +98,7 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
 }
 
 void bindShader(int id) {
+    printf("ShaderProgram: %d ID: %d\n", shaderList[id - 1].shaderProgram, shaderList[id - 1].id);
     glUseProgram(shaderList[id-1].shaderProgram);
 }
 
