@@ -9,11 +9,6 @@ typedef enum { false, true } bool;
 //TODO: Shader implementation
 
 int main() {
-    struct Vertex testVertices[3] = {
-            {-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-            {0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-            {0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
-    };
     printf("Hello, World!\n");
 
     glfwInit();
@@ -34,32 +29,16 @@ int main() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    struct Vertex test1 = {};
-
     getConfigPath();
     readShaderDir();
+    loadObjects();
     bindShader(1);
 
-    unsigned int VAO;
-    unsigned int VBO;
-
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(struct Vertex), &testVertices[0], GL_DYNAMIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, normalX));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
-    glEnableVertexAttribArray(2);
 
     while(!glfwWindowShouldClose(mainWindow)){
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        drawObject(0);
         glfwSwapBuffers(mainWindow);
         bindShader(1);
         glfwPollEvents();
