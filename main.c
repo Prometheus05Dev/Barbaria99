@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include "engine/object.h"
 #include "engine/shader.h"
+#include "engine/camera.h"
 #include <GLFW/glfw3.h>
-
-typedef enum { false, true } bool;
 
 //TODO: Object GL data construction
 //TODO: Shader implementation
@@ -29,10 +28,11 @@ int main() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    getConfigPath();
+    genConfigPath();
     readShaderDir();
     loadObjects();
     bindShader(1);
+    setupDefaultMatrices();
 
 
     while(!glfwWindowShouldClose(mainWindow)){
@@ -41,6 +41,7 @@ int main() {
         drawObject(0);
         glfwSwapBuffers(mainWindow);
         bindShader(1);
+        setupDefaultMatrices();
         glfwPollEvents();
         if(glfwGetKey(mainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(mainWindow, true);

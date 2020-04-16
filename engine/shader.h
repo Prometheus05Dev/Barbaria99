@@ -4,6 +4,7 @@
 #include <elboronlib.h>
 #include <prometheusgamelib.h>
 #include <GL/glew.h>
+#include <cglm/cglm.h>
 
 char *vertexShadersPath;
 char *fragmentShadersPath;
@@ -13,6 +14,8 @@ struct Shader {
     int id;
 };
 
+int currentShader;
+
 struct Shader *shaderList;
 
 void readShaderDir(); /*The  first two Symbols of shader name have to be identifier e.g. 01Lightning Shader. Every Vertex
@@ -21,6 +24,8 @@ void readShaderDir(); /*The  first two Symbols of shader name have to be identif
 void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath);
 
 void bindShader(int id);
+
+void passMatrixToShader(mat4 matrix);
 
 void freeShaders();
 

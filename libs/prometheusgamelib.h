@@ -5,7 +5,7 @@
 
 char *configPath;
 
-void getConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Windows Application Data
+void genConfigPath(); //Using Linux, returns ${HOME}/.config/barbaria under Windows Application Data
 
 void freePGL();
 

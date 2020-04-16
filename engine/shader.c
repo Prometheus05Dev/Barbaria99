@@ -98,12 +98,16 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
 }
 
 void bindShader(int id) {
-    printf("ShaderProgram: %d ID: %d\n", shaderList[id - 1].shaderProgram, shaderList[id - 1].id);
     glUseProgram(shaderList[id-1].shaderProgram);
+    currentShader = shaderList[id-1].shaderProgram;
 }
 
 void freeShaders() {
     free(vertexShadersPath);
     free(fragmentShadersPath);
     free(shaderList);
+}
+
+void passMatrixToShader(mat4 matrix) {
+    glUniformMatrix4fv(glGetUniformLocation(currentShader, "projectionMatrix"), 1, GL_FALSE, matrix[0]);
 }
