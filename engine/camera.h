@@ -13,7 +13,11 @@ vec3 cameraFront;
 vec3 cameraUp;
 vec3 cameraRight;
 
+float yaw;
+float pitch;
+
 float movementSpeed;
+float mouseSensitivity;
 
 void initializeCamera();
 
@@ -28,5 +32,7 @@ void moveBackward();
 void strafeLeft();
 
 void strafeRight();
+
+void processMouse(float offSetX, float offSetY);
 
 #endif //BARBARIA99_CAMERA_H

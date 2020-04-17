@@ -15,4 +15,6 @@ void updateGameWindow();
 
 void processInput();
 
+void processMouse(float offSetX, float offSetY);
+
 #endif //BARBARIA99_GAMEWINDOW_H

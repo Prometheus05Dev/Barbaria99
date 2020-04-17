@@ -60,3 +60,15 @@ void strafeRight() {
     glm_vec3_add(cameraPosition, temp, cameraPosition);
     updateCamera();
 }
+
+void processMouse(float offSetX, float offSetY) {
+    offSetX *= mouseSensitivity;
+    offSetY *= mouseSensitivity;
+    yaw += offSetX;
+    pitch += offSetY;
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+    updateCamera();
+}

@@ -1,6 +1,6 @@
 #include "gamewindow.h"
 
-gameWindowShouldClose = 0;
+int gameWindowShouldClose = 0;
 
 void setupGameWindow() {
     glfwInit();
@@ -14,6 +14,7 @@ void setupGameWindow() {
     }
     glViewport(0, 0, 1920, 1080);
     glfwMakeContextCurrent(gameWindow);
+    glfwSetCursorPosCallback(gameWindow, processMouse);
 #ifdef _RUNTIME
     glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif
