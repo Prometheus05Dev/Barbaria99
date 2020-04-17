@@ -46,9 +46,17 @@ void moveBackward() {
 }
 
 void strafeLeft() {
-
+    vec3 temp;
+    glm_vec3_crossn(cameraFront, cameraUp, temp);
+    glm_vec3_scale(temp, movementSpeed, temp);
+    glm_vec3_sub(cameraPosition, temp, cameraPosition);
+    updateCamera();
 }
 
 void strafeRight() {
-
+    vec3 temp;
+    glm_vec3_crossn(cameraFront, cameraUp, temp);
+    glm_vec3_scale(temp, movementSpeed, temp);
+    glm_vec3_add(cameraPosition, temp, cameraPosition);
+    updateCamera();
 }
