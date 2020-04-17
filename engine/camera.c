@@ -27,13 +27,8 @@ void setupDefaultMatrices() {
 
 void updateCamera() {
     cameraFront[0] = cos(glm_rad(yaw)) * cos(glm_rad(pitch));
-    cameraFront[1] = sin(glm_rad(yaw));
+    cameraFront[1] = sin(glm_rad(pitch));
     cameraFront[2] = sin(glm_rad(yaw)) * cos(glm_rad(pitch));
-    /*printf("Camera Front X: %f\n", cameraFront[0]);
-    printf("Camera Front Y: %f\n", cameraFront[1]);
-    printf("Camera Front Z: %f\n", cameraFront[2]);
-    printf("Yaw: %f\n", yaw);
-    printf("Pitch: %f\n\n\n", pitch); */
     glm_vec3_normalize(cameraFront);
     glm_vec3_crossn(cameraFront, worldUp, cameraRight);
     glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
@@ -77,8 +72,8 @@ void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
         lastY = ypos;
         notFirstMouseMovement = 1;
     }
-    float xOffSet = xpos - lastX;
-    float yOffSet = lastY - ypos;
+    xOffSet = xpos - lastX;
+    yOffSet = lastY - ypos;
     lastX = xpos;
     lastY = ypos;
     xOffSet *= mouseSensitivity;

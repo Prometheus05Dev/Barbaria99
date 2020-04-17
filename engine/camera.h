@@ -19,6 +19,8 @@ float movementSpeed;
 float mouseSensitivity;
 float lastX;
 float lastY;
+float xOffSet;
+float yOffSet;
 
 int notFirstMouseMovement;
 
