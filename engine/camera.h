@@ -4,15 +4,22 @@
 #include <cglm/cglm.h>
 #include "shader.h"
 
-vec3 cameraPosition;
+mat4 viewMatrix;
 
+vec3 worldUp;
+
+vec3 cameraPosition;
 vec3 cameraFront;
+vec3 cameraUp;
+vec3 cameraRight;
 
 float movementSpeed;
 
 void initializeCamera();
 
 void setupDefaultMatrices();
+
+void updateCamera();
 
 void moveForward();
 

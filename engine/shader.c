@@ -108,6 +108,6 @@ void freeShaders() {
     free(shaderList);
 }
 
-void passMatrixToShader(mat4 matrix) {
-    glUniformMatrix4fv(glGetUniformLocation(currentShader, "projectionMatrix"), 1, GL_FALSE, matrix[0]);
+void passMatrixToShader(mat4 matrix, const char *name) {
+    glUniformMatrix4fv(glGetUniformLocation(currentShader, name), 1, GL_FALSE, matrix[0]);
 }

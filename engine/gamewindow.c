@@ -26,4 +26,12 @@ void updateGameWindow() {
 void processInput() {
     if(glfwGetKey(gameWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         gameWindowShouldClose = 1;
+    if(glfwGetKey(gameWindow, GLFW_KEY_W) == GLFW_PRESS)
+        moveForward();
+    if(glfwGetKey(gameWindow, GLFW_KEY_S) == GLFW_PRESS)
+        moveBackward();
+    if(glfwGetKey(gameWindow, GLFW_KEY_A) == GLFW_PRESS)
+        strafeLeft();
+    if(glfwGetKey(gameWindow, GLFW_KEY_D) == GLFW_PRESS)
+        strafeRight();
 }

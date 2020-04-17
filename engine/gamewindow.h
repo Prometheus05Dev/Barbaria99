@@ -1,8 +1,9 @@
 #ifndef BARBARIA99_GAMEWINDOW_H
 #define BARBARIA99_GAMEWINDOW_H
 
-#include <GLFW/glfw3.h>
 #include <stdio.h>
+#include "camera.h"
+#include <GLFW/glfw3.h>
 
 extern int gameWindowShouldClose;
 
