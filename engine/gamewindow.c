@@ -16,7 +16,7 @@ void setupGameWindow() {
     glfwMakeContextCurrent(gameWindow);
     glfwSetCursorPosCallback(gameWindow, processMouse);
 #ifdef _RUNTIME
-    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif
 }
 

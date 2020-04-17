@@ -5,6 +5,8 @@
 #include "camera.h"
 #include <GLFW/glfw3.h>
 
+#define _RUNTIME
+
 extern int gameWindowShouldClose;
 
 GLFWwindow *gameWindow;
@@ -14,7 +16,5 @@ void setupGameWindow();
 void updateGameWindow();
 
 void processInput();
-
-void processMouse(float offSetX, float offSetY);
 
 #endif //BARBARIA99_GAMEWINDOW_H

@@ -14,6 +14,8 @@ void initializeCamera() {
     worldUp[1] = 1.0f;
     worldUp[2] = 0.0f;
     movementSpeed = 0.05f;
+    mouseSensitivity = 0.1f;
+    notFirstMouseMovement = 0.0f;
 }
 
 void setupDefaultMatrices() {
@@ -24,6 +26,14 @@ void setupDefaultMatrices() {
 }
 
 void updateCamera() {
+    cameraFront[0] = cos(glm_rad(yaw)) * cos(glm_rad(pitch));
+    cameraFront[1] = sin(glm_rad(yaw));
+    cameraFront[2] = sin(glm_rad(yaw)) * cos(glm_rad(pitch));
+    /*printf("Camera Front X: %f\n", cameraFront[0]);
+    printf("Camera Front Y: %f\n", cameraFront[1]);
+    printf("Camera Front Z: %f\n", cameraFront[2]);
+    printf("Yaw: %f\n", yaw);
+    printf("Pitch: %f\n\n\n", pitch); */
     glm_vec3_normalize(cameraFront);
     glm_vec3_crossn(cameraFront, worldUp, cameraRight);
     glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
@@ -61,11 +71,20 @@ void strafeRight() {
     updateCamera();
 }
 
-void processMouse(float offSetX, float offSetY) {
-    offSetX *= mouseSensitivity;
-    offSetY *= mouseSensitivity;
-    yaw += offSetX;
-    pitch += offSetY;
+void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
+    if(!notFirstMouseMovement) {
+        lastX = xpos;
+        lastY = ypos;
+        notFirstMouseMovement = 1;
+    }
+    float xOffSet = xpos - lastX;
+    float yOffSet = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+    xOffSet *= mouseSensitivity;
+    yOffSet *= mouseSensitivity;
+    yaw += xOffSet;
+    pitch += yOffSet;
     if(pitch > 89.0f)
         pitch = 89.0f;
     if(pitch < -89.0f)

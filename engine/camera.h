@@ -3,11 +3,11 @@
 
 #include <cglm/cglm.h>
 #include "shader.h"
+#include <GLFW/glfw3.h>
 
 mat4 viewMatrix;
 
 vec3 worldUp;
-
 vec3 cameraPosition;
 vec3 cameraFront;
 vec3 cameraUp;
@@ -15,9 +15,12 @@ vec3 cameraRight;
 
 float yaw;
 float pitch;
-
 float movementSpeed;
 float mouseSensitivity;
+float lastX;
+float lastY;
+
+int notFirstMouseMovement;
 
 void initializeCamera();
 
@@ -33,6 +36,6 @@ void strafeLeft();
 
 void strafeRight();
 
-void processMouse(float offSetX, float offSetY);
+void processMouse(GLFWwindow* placeholder, double xpos, double ypos);
 
 #endif //BARBARIA99_CAMERA_H
