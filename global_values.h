@@ -1,0 +1,6 @@
+#ifndef BARBARIA99_GLOBAL_VALUES_H
+#define BARBARIA99_GLOBAL_VALUES_H
+
+extern float deltaTime;
+
+#endif //BARBARIA99_GLOBAL_VALUES_H

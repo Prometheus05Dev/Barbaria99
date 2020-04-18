@@ -36,6 +36,7 @@ void updateCamera() {
     glm_vec3_add(cameraPosition, cameraFront, temp);
     glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
     passMatrixToShader(viewMatrix, "viewMatrix");
+    movementSpeed = 2.5f * deltaTime;
 }
 
 void moveForward() {

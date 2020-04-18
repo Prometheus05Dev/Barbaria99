@@ -4,6 +4,7 @@
 #include <cglm/cglm.h>
 #include "shader.h"
 #include <GLFW/glfw3.h>
+#include "../global_values.h"
 
 mat4 viewMatrix;
 
