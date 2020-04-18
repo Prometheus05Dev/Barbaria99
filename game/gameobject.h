@@ -7,6 +7,7 @@
 
 struct GameObject {
     float xPosition, yPosition, zPosition;
+    float xScale, yScale, zScale;
     int objectID;
 };
 
@@ -21,6 +22,8 @@ int addGameObject(float x, float y, float z, const char* name); //Places an obje
 void transformObject(int gameObjectID, float x, float y, float z);
 
 void translateObject(int gameObjectID, float x, float y, float z);
+
+void scaleObject(int gameObjectID, float x, float y, float z);
 
 void removeGameObject(int gameObjectID);
 

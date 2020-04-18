@@ -32,6 +32,8 @@ int main() {
     int market = addGameObject(5.0f, 5.0f, 5.0f, "stall");
     int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
 
+    scaleObject(market, 2.0f, 2.0f, 2.0f);
+
     while(!gameWindowShouldClose){
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;

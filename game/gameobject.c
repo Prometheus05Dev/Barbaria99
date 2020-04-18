@@ -7,6 +7,24 @@ void updateGameObjects() {
         placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][0] = gameObjectList[i].xPosition;
         placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][1] = gameObjectList[i].yPosition;
         placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][2] = gameObjectList[i].zPosition;
+        if(gameObjectList[i].xScale != 0) {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[0][0] = gameObjectList[i].xScale;
+        }
+        else {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[0][0] = 1.0f;
+        }
+        if(gameObjectList[i].xScale != 0) {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[1][1] = gameObjectList[i].yScale;
+        }
+        else {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[1][1] = 1.0f;
+        }
+        if(gameObjectList[i].xScale != 0) {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[2][2] = gameObjectList[i].zScale;
+        }
+        else {
+            placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[2][2] = 1.0f;
+        }
         drawObject(gameObjectList[i].objectID);
     }
 }
@@ -34,6 +52,9 @@ int addGameObject(float x, float y, float z, const char* name) {
         }
     }
     transformObject(gameObjectCount, x, y, z);
+    gameObjectList[gameObjectCount - 1].xScale = 0.0f;
+    gameObjectList[gameObjectCount - 1].yScale = 0.0f;
+    gameObjectList[gameObjectCount - 1].zScale = 0.0f;
     return gameObjectCount;
 }
 
@@ -47,6 +68,12 @@ void translateObject(int gameObjectID, float x, float y, float z) {
     gameObjectList[gameObjectID - 1].xPosition += x;
     gameObjectList[gameObjectID - 1].yPosition += y;
     gameObjectList[gameObjectID - 1].zPosition += z;
+}
+
+void scaleObject(int gameObjectID, float x, float y, float z) {
+    gameObjectList[gameObjectID - 1].xScale = x;
+    gameObjectList[gameObjectID - 1].yScale = y;
+    gameObjectList[gameObjectID - 1].zScale = z;
 }
 
 void removeGameObject(int gameObjectID) {
