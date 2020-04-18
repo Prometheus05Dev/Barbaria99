@@ -29,7 +29,8 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
-    addGameObject(0.0f, 0.0f, 0.0f, "stall");
+    int market = addGameObject(5.0f, 5.0f, 5.0f, "stall");
+    int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
 
     while(!gameWindowShouldClose){
         currentFrame = glfwGetTime();

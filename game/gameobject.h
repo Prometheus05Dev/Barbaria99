@@ -18,6 +18,8 @@ void updateGameObjects(); //Takes one instance of an object and places it for ea
 
 int addGameObject(float x, float y, float z, const char* name); //Places an object into the world. Returns game object ID.
 
+void transformObject(int gameObjectID, int x, int y, int z);
+
 void removeGameObject(int gameObjectID);
 
 #endif //BARBARIA99_GAMEOBJECT_H

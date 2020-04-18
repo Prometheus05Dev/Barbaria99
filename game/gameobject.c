@@ -4,6 +4,9 @@ int gameObjectCount = 0;
 
 void updateGameObjects() {
     for(int i = 0; i < gameObjectCount; i++) {
+        placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][0] = gameObjectList[i].xPosition;
+        placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][1] = gameObjectList[i].yPosition;
+        placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[3][2] = gameObjectList[i].zPosition;
         drawObject(gameObjectList[i].objectID);
     }
 }
@@ -30,7 +33,14 @@ int addGameObject(float x, float y, float z, const char* name) {
             }
         }
     }
+    transformObject(gameObjectCount, x, y, z);
     return gameObjectCount;
+}
+
+void transformObject(int gameObjectID, int x, int y, int z) {
+    gameObjectList[gameObjectID - 1].xPosition = x;
+    gameObjectList[gameObjectID - 1].yPosition = y;
+    gameObjectList[gameObjectID - 1].zPosition = z;
 }
 
 void removeGameObject(int gameObjectID) {
