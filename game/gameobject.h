@@ -18,7 +18,9 @@ void updateGameObjects(); //Takes one instance of an object and places it for ea
 
 int addGameObject(float x, float y, float z, const char* name); //Places an object into the world. Returns game object ID.
 
-void transformObject(int gameObjectID, int x, int y, int z);
+void transformObject(int gameObjectID, float x, float y, float z);
+
+void translateObject(int gameObjectID, float x, float y, float z);
 
 void removeGameObject(int gameObjectID);
 

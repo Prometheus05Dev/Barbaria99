@@ -37,10 +37,16 @@ int addGameObject(float x, float y, float z, const char* name) {
     return gameObjectCount;
 }
 
-void transformObject(int gameObjectID, int x, int y, int z) {
+void transformObject(int gameObjectID, float x, float y, float z) {
     gameObjectList[gameObjectID - 1].xPosition = x;
     gameObjectList[gameObjectID - 1].yPosition = y;
     gameObjectList[gameObjectID - 1].zPosition = z;
+}
+
+void translateObject(int gameObjectID, float x, float y, float z) {
+    gameObjectList[gameObjectID - 1].xPosition += x;
+    gameObjectList[gameObjectID - 1].yPosition += y;
+    gameObjectList[gameObjectID - 1].zPosition += z;
 }
 
 void removeGameObject(int gameObjectID) {

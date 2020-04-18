@@ -39,6 +39,7 @@ int main() {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         bindShader(1);
+        translateObject(market2, 0.01f, 0.01f, 0.01f);
         updateGameObjects();
         updateGameWindow();
         glfwPollEvents();
