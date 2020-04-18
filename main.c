@@ -29,6 +29,8 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
+    addGameObject(0.0f, 0.0f, 0.0f, "stall");
+
     while(!gameWindowShouldClose){
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -36,7 +38,7 @@ int main() {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         bindShader(1);
-        drawObject(0);
+        updateGameObjects();
         updateGameWindow();
         glfwPollEvents();
         processInput();

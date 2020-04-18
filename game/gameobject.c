@@ -4,7 +4,17 @@ int gameObjectCount = 0;
 
 void updateGameObjects() {
     for(int i = 0; i < gameObjectCount; i++) {
-        drawObject(gameObjectList[gameObjectCount - 1].objectID);
+        for(int j = 0; j <= 3; j++) {
+            for(int x = 0; x <= 3;x++) {
+                if(j == x){
+                    placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[j][x] = 1.0f;
+                }
+                else {
+                    placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[j][x] = 0.0f;
+                }
+            }
+        }
+        drawObject(gameObjectList[i].objectID);
     }
 }
 

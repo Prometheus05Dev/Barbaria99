@@ -32,12 +32,6 @@ void loadObjects() {
                     placeHolderObjectList = realloc(placeHolderObjectList, (arrayReader + 1) * sizeof(struct PlaceHolderObject));
                 }
 
-                for(int x = 0; x <= 3; x++) {
-                    for(int y = 0; y <= 3; y++) {
-                        placeHolderObjectList[arrayReader].modelMatrix[x][y] = 1.0f;
-                    }
-                }
-
                 //Reads line by line the file and sets the appropriate structure arguments
                 while(fgets(line, len, tmpFile)) {
                     struct PlaceHolderObject tmpObject;
@@ -277,7 +271,7 @@ void freeObjects() {
 
 int getObjectNumber(const char *name) {
     for(int i = 0; i < numObjects; i++) {
-        if(strcmp(placeHolderObjectList[i].name, name) == 0) {
+        if(strcmp(&placeHolderObjectList[i].name, name) == 0) {
             return i;
         }
     }
