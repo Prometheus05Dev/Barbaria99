@@ -25,6 +25,8 @@ void translateObject(int gameObjectID, float x, float y, float z);
 
 void scaleObject(int gameObjectID, float x, float y, float z);
 
+void scaleAddObject(int gameObjectID, float x, float y, float z);
+
 void removeGameObject(int gameObjectID);
 
 #endif //BARBARIA99_GAMEOBJECT_H

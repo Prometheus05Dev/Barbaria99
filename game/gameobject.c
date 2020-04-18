@@ -52,9 +52,9 @@ int addGameObject(float x, float y, float z, const char* name) {
         }
     }
     transformObject(gameObjectCount, x, y, z);
-    gameObjectList[gameObjectCount - 1].xScale = 0.0f;
-    gameObjectList[gameObjectCount - 1].yScale = 0.0f;
-    gameObjectList[gameObjectCount - 1].zScale = 0.0f;
+    gameObjectList[gameObjectCount - 1].xScale = 1.0f;
+    gameObjectList[gameObjectCount - 1].yScale = 1.0f;
+    gameObjectList[gameObjectCount - 1].zScale = 1.0f;
     return gameObjectCount;
 }
 
@@ -74,6 +74,12 @@ void scaleObject(int gameObjectID, float x, float y, float z) {
     gameObjectList[gameObjectID - 1].xScale = x;
     gameObjectList[gameObjectID - 1].yScale = y;
     gameObjectList[gameObjectID - 1].zScale = z;
+}
+
+void scaleAddObject(int gameObjectID, float x, float y, float z) {
+    gameObjectList[gameObjectID - 1].xScale += x;
+    gameObjectList[gameObjectID - 1].yScale += y;
+    gameObjectList[gameObjectID - 1].zScale += z;
 }
 
 void removeGameObject(int gameObjectID) {
