@@ -4,6 +4,7 @@ void loadObjects() {
 
     char* modelDirectory = combineStrings(configPath, "/objects/models/");
     char* configDirectory = combineStrings(configPath, "/objects/configs/");
+    char* textureDirectory = combineStrings(configPath, "/objects/textures/");
 
     int arrayReader = 0;
     int lineReader = 0;
@@ -90,8 +91,26 @@ void loadObjects() {
         perror("modelDirectory of objects could not be opened!");
     }
 
+    DIR *textureDir;
+    struct dirent *textureDirEntry;
+    if((textureDir = opendir(textureDirectory))) {
+        while((textureDirEntry = readdir(textureDir))) {
+            if(strcmp(textureDirEntry->d_name, ".") && strcmp(textureDirEntry->d_name, "..")) {
+                for(int i = 0; i < numObjects; i++) {
+                    if(strncmp(textureDirEntry->d_name, &placeHolderObjectList[i].name, strlen(&placeHolderObjectList[i].name)) == 0) {
+                        loadTexture(combineStrings(textureDirectory, textureDirEntry->d_name), i);
+                    }
+                }
+            }
+        }
+    }
+    else {
+        perror("textureDirectory of objects could not be opened!");
+    }
+
     free(modelDirectory);
     free(configDirectory);
+    free(textureDirectory);
 }
 
 
@@ -202,9 +221,26 @@ void loadPMF(char* path, int objectNumber) {
     free(path);
 }
 
+void loadTexture(char* path, int objectNumber) {
+    printf("Loading texture: %s with object number: %d\n", path, objectNumber);
+    int textureWidth = 0;
+    int textureHeight = 0;
+    int bitsPerPixel = 0;
+    stbi_uc *textureBuffer = stbi_load(path, &textureWidth, &textureHeight, &bitsPerPixel, 4);
+    printf("Texture Width: %d Texture Height: %d Bits per Pixel: %d\n", textureWidth, textureHeight, bitsPerPixel);
+    glGenTextures(1, &placeHolderObjectList[objectNumber].textureBufferId);
+    glBindTexture(GL_TEXTURE_2D, placeHolderObjectList[objectNumber].textureBufferId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureBuffer);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 void constructOpenGLData(int objectNumber) {
     printf("Constructing object: %s with object number: %d\n", &placeHolderObjectList[objectNumber].name, objectNumber);
+    stbi_set_flip_vertically_on_load(1);
     glGenVertexArrays(1, &placeHolderObjectList[objectNumber].VAO);
     glGenBuffers(1, &placeHolderObjectList[objectNumber].VBO);
     glGenBuffers(1, &placeHolderObjectList[objectNumber].EBO);
@@ -222,6 +258,8 @@ void constructOpenGLData(int objectNumber) {
 }
 
 void drawObject(int objectNumber) {
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, placeHolderObjectList[objectNumber].textureBufferId);
     glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].EBO);
     glDrawElements(GL_TRIANGLES, placeHolderObjectList[objectNumber].numIndices, GL_UNSIGNED_INT, 0);

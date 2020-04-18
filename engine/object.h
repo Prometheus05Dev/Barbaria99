@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include <prometheusgamelib.h>
 #include <GL/glew.h>
+#include <stb_image.h>
 
 #define _LINUX
 
@@ -38,6 +39,7 @@ struct PlaceHolderObject {
     struct Vertex *vertices;
     unsigned int numIndices;
     unsigned int *indices;
+    GLuint textureBufferId;
 };
 
 struct PlaceHolderObject *placeHolderObjectList; /*Array for game objects to access their placeholder and move it to
@@ -48,6 +50,8 @@ int numObjects; //Don't forget the index of numObjects starts at 1!
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 
 void loadPMF(char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
+
+void loadTexture(char* path, int objectNumber);
 
 void constructOpenGLData(int objectNumber);
 
