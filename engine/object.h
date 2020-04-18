@@ -1,5 +1,5 @@
-#ifndef BARBARIA99_GAMEOBJECT_H
-#define BARBARIA99_GAMEOBJECT_H
+#ifndef BARBARIA99_OBJECT_H
+#define BARBARIA99_OBJECT_H
 
 #include <elboronlib.h>
 #include <stdio.h>
@@ -7,6 +7,8 @@
 #include <prometheusgamelib.h>
 #include <GL/glew.h>
 #include <stb_image.h>
+#include <cglm/cglm.h>
+#include "shader.h"
 
 #define _LINUX
 
@@ -18,6 +20,7 @@
 #include <zconf.h>
 #include <string.h>
 #include <stdlib.h>
+
 #endif
 
 struct Vertex {
@@ -40,6 +43,7 @@ struct PlaceHolderObject {
     unsigned int numIndices;
     unsigned int *indices;
     GLuint textureBufferId;
+    mat4 modelMatrix;
 };
 
 struct PlaceHolderObject *placeHolderObjectList; /*Array for game objects to access their placeholder and move it to
@@ -61,4 +65,4 @@ void drawObject(int objectNumber);
 
 void freeObjects(); //Frees manually allocated memory
 
-#endif //BARBARIA99_GAMEOBJECT_H
+#endif //BARBARIA99_OBJECT_H

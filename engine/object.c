@@ -32,6 +32,12 @@ void loadObjects() {
                     placeHolderObjectList = realloc(placeHolderObjectList, (arrayReader + 1) * sizeof(struct PlaceHolderObject));
                 }
 
+                for(int x = 0; x <= 3; x++) {
+                    for(int y = 0; y <= 3; y++) {
+                        placeHolderObjectList[arrayReader].modelMatrix[x][y] = 1.0f;
+                    }
+                }
+
                 //Reads line by line the file and sets the appropriate structure arguments
                 while(fgets(line, len, tmpFile)) {
                     struct PlaceHolderObject tmpObject;
@@ -258,6 +264,7 @@ void constructOpenGLData(int objectNumber) {
 }
 
 void drawObject(int objectNumber) {
+    passMatrixToShader(placeHolderObjectList[objectNumber].modelMatrix, "modelMatrix");
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, placeHolderObjectList[objectNumber].textureBufferId);
     glBindVertexArray(placeHolderObjectList[objectNumber].VAO);

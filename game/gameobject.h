@@ -10,7 +10,7 @@ struct GameObject {
     int objectID;
 };
 
-int gameObjectCount = 0;
+int gameObjectCount;
 
 struct GameObject *gameObjectList;
 
