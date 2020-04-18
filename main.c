@@ -6,6 +6,7 @@
 #include "engine/gamewindow.h"
 #include "global_values.h"
 #include <GLFW/glfw3.h>
+#include "game/gameobject.h"
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;

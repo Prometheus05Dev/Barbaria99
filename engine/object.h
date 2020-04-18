@@ -49,6 +49,8 @@ int numObjects; //Don't forget the index of numObjects starts at 1!
 
 void loadObjects(); // Fills the placeHolderObjectList and sets their attributes
 
+int getObjectNumber(const char *name);
+
 void loadPMF(char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
 
 void loadTexture(char* path, int objectNumber);

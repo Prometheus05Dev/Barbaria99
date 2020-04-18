@@ -267,3 +267,12 @@ void drawObject(int objectNumber) {
 
 void freeObjects() {
 }
+
+int getObjectNumber(const char *name) {
+    for(int i = 0; i < numObjects; i++) {
+        if(strcmp(placeHolderObjectList[i].name, name) == 0) {
+            return i;
+        }
+    }
+    printf("Object: %s could not be found!\n", name);
+}
