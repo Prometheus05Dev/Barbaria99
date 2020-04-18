@@ -4,16 +4,6 @@ int gameObjectCount = 0;
 
 void updateGameObjects() {
     for(int i = 0; i < gameObjectCount; i++) {
-        for(int j = 0; j <= 3; j++) {
-            for(int x = 0; x <= 3;x++) {
-                if(j == x){
-                    placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[j][x] = 1.0f;
-                }
-                else {
-                    placeHolderObjectList[gameObjectList[i].objectID].modelMatrix[j][x] = 0.0f;
-                }
-            }
-        }
         drawObject(gameObjectList[i].objectID);
     }
 }
@@ -30,6 +20,16 @@ int addGameObject(float x, float y, float z, const char* name) {
     gameObjectList[gameObjectCount - 1].yPosition = y;
     gameObjectList[gameObjectCount - 1].zPosition = z;
     gameObjectList[gameObjectCount - 1].objectID = getObjectNumber(name);
+    for(int j = 0; j <= 3; j++) {
+        for(int x = 0; x <= 3;x++) {
+            if(j == x){
+                placeHolderObjectList[gameObjectList[gameObjectCount - 1].objectID].modelMatrix[j][x] = 1.0f;
+            }
+            else {
+                placeHolderObjectList[gameObjectList[gameObjectCount - 1].objectID].modelMatrix[j][x] = 0.0f;
+            }
+        }
+    }
     return gameObjectCount;
 }
 
