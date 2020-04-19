@@ -11,9 +11,13 @@ struct GameObject {
     int objectID;
 };
 
+struct GameObjectPointer {
+    struct GameObject *object;
+};
+
 int gameObjectCount;
 
-struct GameObject *gameObjectList;
+struct GameObjectPointer *gameObjectList;
 
 void updateGameObjects(); //Takes one instance of an object and places it for each Game object to proper direction
 

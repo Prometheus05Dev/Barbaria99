@@ -47,6 +47,8 @@ int main() {
         processInput();
     }
 
+    removeGameObject(market);
+    removeGameObject(market2);
     freeObjects();
     freePGL();
     freeShaders();
