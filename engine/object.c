@@ -1,10 +1,18 @@
 #include "object.h"
 
 void loadObjects() {
-
+#ifdef _LINUX
     char* modelDirectory = combineStrings(configPath, "/objects/models/");
     char* configDirectory = combineStrings(configPath, "/objects/configs/");
     char* textureDirectory = combineStrings(configPath, "/objects/textures/");
+#endif
+
+#ifdef _WINDOWS
+    char* modelDirectory = combineStrings(configPath, _T("\\objects\\models\\"));
+    char* configDirectory = combineStrings(configPath, _T("\\objects\\configs\\"));
+    char* textureDirectory = combineStrings(configPath, _T("\\objects\\textures\\"));
+#endif
+
 
     int arrayReader = 0;
     int lineReader = 0;

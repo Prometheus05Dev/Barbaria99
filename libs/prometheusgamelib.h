@@ -6,6 +6,10 @@
 #include "elboronlib.h"
 
 #ifdef _WINDOWS
+#include <shlwapi.h>
+#pragma comment(lib, "shlwapi.lib")
+#include <shlobj.h>
+#include <tchar.h>
 #endif
 
 #ifdef _LINUX

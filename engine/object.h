@@ -6,21 +6,20 @@
 #include <dirent.h>
 #include <prometheusgamelib.h>
 #include <GL/glew.h>
-#include <stb_image.h>
 #include <cglm/cglm.h>
 #include "shader.h"
 
-#define _LINUX
+#define _WINDOWS
 
 #ifdef _WINDOWS
-//Do something to provide windows API informations.
+#include "stb_image.h"
 #endif
 
 #ifdef _LINUX
 #include <zconf.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <stb_image.h>
 #endif
 
 struct Vertex {
