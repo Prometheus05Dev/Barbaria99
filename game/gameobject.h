@@ -11,6 +11,7 @@ struct GameObject {
     float rotationAngle;
     vec3 rotationVector;
     vec3 scaleVector;
+    float rotationTempX, rotationTempY, rotationTempZ;
     int objectID;
 };
 
