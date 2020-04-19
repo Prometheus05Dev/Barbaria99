@@ -1,7 +1,4 @@
-#include <pwd.h>
-#include <zconf.h>
 #include "prometheusgamelib.h"
-#include "elboronlib.h"
 
 void genConfigPath() {
 #ifdef _LINUX
