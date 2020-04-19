@@ -91,10 +91,25 @@ void scaleAddObject(int gameObjectID, float x, float y, float z) {
 }
 
 void rotateObject(int gameObjectID, float degrees, float x, float y, float z) {
+    degrees = degrees / 57.29578;
     gameObjectList[gameObjectID - 1].object[0].rotationAngle = degrees;
     gameObjectList[gameObjectID - 1].object[0].rotationVector[0] = x;
     gameObjectList[gameObjectID - 1].object[0].rotationVector[1] = y;
     gameObjectList[gameObjectID - 1].object[0].rotationVector[2] = z;
+}
+
+void rotateAddObject(int gameObjectID, float degrees, float x, float y, float z) {
+    degrees = degrees / 57.29578;
+    gameObjectList[gameObjectID - 1].object[0].rotationAngle += degrees;
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[0] != x) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] = x;
+    }
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[1] != y) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] = y;
+    }
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[2] != z) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] = z;
+    }
 }
 
 void removeGameObject(int gameObjectID) {

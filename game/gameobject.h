@@ -32,6 +32,8 @@ void translateObject(int gameObjectID, float x, float y, float z);
 
 void rotateObject(int gameObjectID, float degrees, float x, float y, float z);
 
+void rotateAddObject(int gameObjectID, float degrees, float x, float y, float z);
+
 void scaleObject(int gameObjectID, float x, float y, float z);
 
 void scaleAddObject(int gameObjectID, float x, float y, float z);
