@@ -7,10 +7,10 @@
 #include <stdlib.h>
 
 struct GameObject {
-    float xPosition, yPosition, zPosition;
+    vec3 translationVector;
     float rotationAngle;
     vec3 rotationVector;
-    float xScale, yScale, zScale;
+    vec3 scaleVector;
     int objectID;
 };
 

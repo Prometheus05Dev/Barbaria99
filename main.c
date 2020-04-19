@@ -31,7 +31,7 @@ int main() {
 
     int market = addGameObject(5.0f, 5.0f, 5.0f, "stall");
     int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
-    rotateObject(market, 90.0f, 1.0f, 0.0f, 0.0f);
+    rotateObject(market, 180.0f, 1.0f, 0.0f, 0.0f);
 
     while(!gameWindowShouldClose){
         currentFrame = glfwGetTime();
@@ -41,7 +41,6 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         bindShader(1);
         translateObject(market2, 0.01f, 0.01f, 0.01f);
-        rotateAddObject(market, 1.0f, 0.0f, 0.0f, 0.0f);
         updateGameObjects();
         updateGameWindow();
         glfwPollEvents();

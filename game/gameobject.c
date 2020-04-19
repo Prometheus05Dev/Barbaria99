@@ -14,21 +14,23 @@ void updateGameObjects() {
                 }
             }
         }
-        placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[3][0] = gameObjectList[i].object[0].xPosition;
-        placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[3][1] = gameObjectList[i].object[0].yPosition;
-        placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[3][2] = gameObjectList[i].object[0].zPosition;
+        mat4 transformMatrix = GLM_MAT4_IDENTITY_INIT;
+        mat4 translationMatrix = GLM_MAT4_IDENTITY_INIT;
+        glm_translate(translationMatrix, gameObjectList[i].object[0].translationVector);
+        glm_mat4_mul(transformMatrix, translationMatrix, transformMatrix);
+
         if(gameObjectList[i].object[0].rotationAngle != 0.0f) {
-            glm_rotate(placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix, gameObjectList[i].object[0].rotationAngle, gameObjectList[i].object[0].rotationVector);
+            mat4 rotationMatrix = GLM_MAT4_IDENTITY_INIT;
+            glm_rotate(rotationMatrix, gameObjectList[i].object[0].rotationAngle, gameObjectList[i].object[0].rotationVector);
+            glm_mat4_mul(transformMatrix, rotationMatrix, transformMatrix);
         }
-        if(gameObjectList[i].object[0].xScale != 0) {
-            placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[0][0] = gameObjectList[i].object[0].xScale;
+
+        if(gameObjectList[i].object[0].scaleVector[0] != 0) {
+            mat4 scaleMatrix = GLM_MAT4_IDENTITY_INIT;
+            glm_scale(scaleMatrix, gameObjectList[i].object[0].scaleVector);
+            glm_mat4_mul(transformMatrix, scaleMatrix, transformMatrix);
         }
-        if(gameObjectList[i].object[0].xScale != 0) {
-            placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[1][1] = gameObjectList[i].object[0].yScale;
-        }
-        if(gameObjectList[i].object[0].xScale != 0) {
-            placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix[2][2] = gameObjectList[i].object[0].zScale;
-        }
+        glm_mat4_mul(placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix, transformMatrix, placeHolderObjectList[gameObjectList[i].object[0].objectID].modelMatrix);
         drawObject(gameObjectList[i].object[0].objectID);
     }
 }
@@ -43,9 +45,9 @@ int addGameObject(float x, float y, float z, const char* name) {
         gameObjectList = realloc(gameObjectList, gameObjectCount * sizeof(struct GameObjectPointer));
         gameObjectList[gameObjectCount - 1].object = malloc(sizeof(struct GameObject));
     }
-    gameObjectList[gameObjectCount - 1].object[0].xPosition = x;
-    gameObjectList[gameObjectCount - 1].object[0].yPosition = y;
-    gameObjectList[gameObjectCount - 1].object[0].zPosition = z;
+    gameObjectList[gameObjectCount - 1].object[0].translationVector[0] = x;
+    gameObjectList[gameObjectCount - 1].object[0].translationVector[1] = y;
+    gameObjectList[gameObjectCount - 1].object[0].translationVector[2] = z;
     gameObjectList[gameObjectCount - 1].object[0].objectID = getObjectNumber(name);
     for(int j = 0; j <= 3; j++) {
         for(int x = 0; x <= 3;x++) {
@@ -58,36 +60,36 @@ int addGameObject(float x, float y, float z, const char* name) {
         }
     }
     transformObject(gameObjectCount, x, y, z);
-    gameObjectList[gameObjectCount - 1].object[0].xScale = 1.0f;
-    gameObjectList[gameObjectCount - 1].object[0].yScale = 1.0f;
-    gameObjectList[gameObjectCount - 1].object[0].zScale = 1.0f;
+    gameObjectList[gameObjectCount - 1].object[0].scaleVector[0] = 1.0f;
+    gameObjectList[gameObjectCount - 1].object[0].scaleVector[1] = 1.0f;
+    gameObjectList[gameObjectCount - 1].object[0].scaleVector[2] = 1.0f;
     gameObjectList[gameObjectCount - 1].object[0].rotationAngle = 0.0f;
     glm_vec3_zero(gameObjectList[gameObjectCount - 1].object[0].rotationVector);
     return gameObjectCount;
 }
 
 void transformObject(int gameObjectID, float x, float y, float z) {
-    gameObjectList[gameObjectID - 1].object[0].xPosition = x;
-    gameObjectList[gameObjectID - 1].object[0].yPosition = y;
-    gameObjectList[gameObjectID - 1].object[0].zPosition = z;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[0] = x;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[1] = y;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[2] = z;
 }
 
 void translateObject(int gameObjectID, float x, float y, float z) {
-    gameObjectList[gameObjectID - 1].object[0].xPosition += x;
-    gameObjectList[gameObjectID - 1].object[0].yPosition += y;
-    gameObjectList[gameObjectID - 1].object[0].zPosition += z;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[0] += x;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[1] += y;
+    gameObjectList[gameObjectID - 1].object[0].translationVector[2] += z;
 }
 
 void scaleObject(int gameObjectID, float x, float y, float z) {
-    gameObjectList[gameObjectID - 1].object[0].xScale = x;
-    gameObjectList[gameObjectID - 1].object[0].yScale = y;
-    gameObjectList[gameObjectID - 1].object[0].zScale = z;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[0] = x;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[1] = y;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[2] = z;
 }
 
 void scaleAddObject(int gameObjectID, float x, float y, float z) {
-    gameObjectList[gameObjectID - 1].object[0].xScale += x;
-    gameObjectList[gameObjectID - 1].object[0].yScale += y;
-    gameObjectList[gameObjectID - 1].object[0].zScale += z;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[0] += x;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[1] += y;
+    gameObjectList[gameObjectID - 1].object[0].scaleVector[2] += z;
 }
 
 void rotateObject(int gameObjectID, float degrees, float x, float y, float z) {
@@ -99,16 +101,27 @@ void rotateObject(int gameObjectID, float degrees, float x, float y, float z) {
 }
 
 void rotateAddObject(int gameObjectID, float degrees, float x, float y, float z) {
+    float oldDegrees = gameObjectList[gameObjectID - 1].object[0].rotationAngle;
     degrees = degrees / 57.29578;
+
     gameObjectList[gameObjectID - 1].object[0].rotationAngle += degrees;
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[0] != x) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] = x;
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[0] != x && x != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] += x * degrees / oldDegrees;
     }
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[1] != y) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] = y;
+    else {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] *= degrees / oldDegrees;
     }
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[2] != z) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] = z;
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[1] != y && x != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] += y * degrees / oldDegrees;
+    }
+    else {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] *= degrees / oldDegrees;
+    }
+    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[2] != z && x != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] += z * degrees / oldDegrees;
+    }
+    else {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] *= degrees / oldDegrees;
     }
 }
 
