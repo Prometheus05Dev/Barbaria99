@@ -40,6 +40,7 @@ int main() {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         bindShader(1);
+        rotateAddObject(market, 1.0f, 1.0f, 0.0f, 0.0f);
         translateObject(market2, 0.01f, 0.01f, 0.01f);
         updateGameObjects();
         updateGameWindow();

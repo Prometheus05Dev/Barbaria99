@@ -101,27 +101,16 @@ void rotateObject(int gameObjectID, float degrees, float x, float y, float z) {
 }
 
 void rotateAddObject(int gameObjectID, float degrees, float x, float y, float z) {
-    float oldDegrees = gameObjectList[gameObjectID - 1].object[0].rotationAngle;
     degrees = degrees / 57.29578;
-
     gameObjectList[gameObjectID - 1].object[0].rotationAngle += degrees;
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[0] != x && x != 0) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] += x * degrees / oldDegrees;
+    if(x != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] += (x - gameObjectList[gameObjectID - 1].object[0].rotationVector[0]);
     }
-    else {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[0] *= degrees / oldDegrees;
+    if(y != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] += (y - gameObjectList[gameObjectID - 1].object[0].rotationVector[1]);
     }
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[1] != y && x != 0) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] += y * degrees / oldDegrees;
-    }
-    else {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[1] *= degrees / oldDegrees;
-    }
-    if(gameObjectList[gameObjectID - 1].object[0].rotationVector[2] != z && x != 0) {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] += z * degrees / oldDegrees;
-    }
-    else {
-        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] *= degrees / oldDegrees;
+    if(z != 0) {
+        gameObjectList[gameObjectID - 1].object[0].rotationVector[2] += (z - gameObjectList[gameObjectID - 1].object[0].rotationVector[2]);
     }
 }
 
