@@ -2,11 +2,14 @@
 #define BARBARIA99_GAMEOBJECT_H
 
 #include "../engine/object.h"
+#include <cglm/cglm.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 struct GameObject {
     float xPosition, yPosition, zPosition;
+    float rotationAngle;
+    vec3 rotationVector;
     float xScale, yScale, zScale;
     int objectID;
 };
@@ -26,6 +29,8 @@ int addGameObject(float x, float y, float z, const char* name); //Places an obje
 void transformObject(int gameObjectID, float x, float y, float z);
 
 void translateObject(int gameObjectID, float x, float y, float z);
+
+void rotateObject(int gameObjectID, float degrees, float x, float y, float z);
 
 void scaleObject(int gameObjectID, float x, float y, float z);
 
