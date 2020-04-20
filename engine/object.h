@@ -9,7 +9,7 @@
 #include <cglm/cglm.h>
 #include "shader.h"
 
-#define _WINDOWS
+#define _LINUX
 
 #ifdef _WINDOWS
 #include "stb_image.h"

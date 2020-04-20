@@ -1,7 +1,7 @@
 #ifndef BARBARIA99_PROMETHEUSGAMELIB_H
 #define BARBARIA99_PROMETHEUSGAMELIB_H
 
-#define _WINDOWS
+#define _LINUX
 
 #include "elboronlib.h"
 

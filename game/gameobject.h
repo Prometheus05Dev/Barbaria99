@@ -2,9 +2,9 @@
 #define BARBARIA99_GAMEOBJECT_H
 
 #include "../engine/object.h"
-#include <cglm/cglm.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cglm/cglm.h>
 
 struct GameObject {
     vec3 translationVector;
