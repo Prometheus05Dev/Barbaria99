@@ -19,7 +19,7 @@ int main() {
     int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
     rotateObject(market, 180.0f, 0.0f, 1.0f, 0.0f);
 
-    gameSet3D();
+    gameSet2D();
     gameBindShader(1);
 
     while(!gameWindowShouldClose){

@@ -87,7 +87,12 @@ void loadObjects() {
             if(strcmp(modelDirEntry->d_name, ".") && strcmp(modelDirEntry->d_name, "..")) {
                 for(int i = 0; i < numObjects; i++) {
                     if(strncmp(modelDirEntry->d_name, &placeHolderObjectList[i].name, strlen(&placeHolderObjectList[i].name)) == 0) {
-                        loadPMF(combineStrings(modelDirectory, modelDirEntry->d_name), i);
+                        if(placeHolderObjectList[i].type == 0) {
+                            loadPMF(combineStrings(modelDirectory, modelDirEntry->d_name), i);
+                        }
+                        if(placeHolderObjectList[i].type == 1) {
+                            load2D(i);
+                        }
                     }
                 }
                 arrayReader = arrayReader + 1;
@@ -229,6 +234,28 @@ void loadPMF(char* path, int objectNumber) {
     free(path);
 }
 
+void load2D(int objectNumber) {
+    printf("Loading object in 2D with number: %d \n", objectNumber);
+    placeHolderObjectList[objectNumber].vertices2D = malloc(4 * sizeof(struct Vertex2D));
+    struct Vertex2D quadVertexOne = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    struct Vertex2D quadVertexTwo = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
+    struct Vertex2D quadVertexThree = {1.0f, 1.0f, 0.0f, 1.0f, 1.0f};
+    struct Vertex2D quadVertexFour = {0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+    placeHolderObjectList[objectNumber].vertices2D[0] = quadVertexOne;
+    placeHolderObjectList[objectNumber].vertices2D[1] = quadVertexTwo;
+    placeHolderObjectList[objectNumber].vertices2D[2] = quadVertexThree;
+    placeHolderObjectList[objectNumber].vertices2D[3] = quadVertexFour;
+    placeHolderObjectList[objectNumber].indices = malloc(6 * sizeof(unsigned int));
+    placeHolderObjectList[objectNumber].numIndices = 6;
+    placeHolderObjectList[objectNumber].indices[0] = 0;
+    placeHolderObjectList[objectNumber].indices[1] = 1;
+    placeHolderObjectList[objectNumber].indices[2] = 2;
+    placeHolderObjectList[objectNumber].indices[3] = 0;
+    placeHolderObjectList[objectNumber].indices[4] = 3;
+    placeHolderObjectList[objectNumber].indices[5] = 2;
+    placeHolderObjectList[objectNumber].numVertices = 4;
+}
+
 void loadTexture(char* path, int objectNumber) {
     printf("Loading texture: %s with object number: %d\n", path, objectNumber);
     int textureWidth = 0;
@@ -254,15 +281,27 @@ void constructOpenGLData(int objectNumber) {
     glGenBuffers(1, &placeHolderObjectList[objectNumber].EBO);
     glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
     glBindBuffer(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].VBO);
-    glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex), &placeHolderObjectList[objectNumber].vertices[0], GL_DYNAMIC_DRAW);
+    if(placeHolderObjectList[objectNumber].type == 0) {
+        glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex), &placeHolderObjectList[objectNumber].vertices[0], GL_DYNAMIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, normalX));
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
+        glEnableVertexAttribArray(2);
+    }
+    else if(placeHolderObjectList[objectNumber].type == 1) {
+        glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex2D), &placeHolderObjectList[objectNumber].vertices2D[0], GL_DYNAMIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex2D), (void*)0);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex2D), (void*)offsetof(struct Vertex2D, textureX));
+        glEnableVertexAttribArray(1);
+    }
+    else {
+        printf("Fatal error occurred in object.c!\n");
+    }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numIndices * sizeof(unsigned int), &placeHolderObjectList[objectNumber].indices[0], GL_DYNAMIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, normalX));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
-    glEnableVertexAttribArray(2);
 }
 
 void drawObject(int objectNumber) {

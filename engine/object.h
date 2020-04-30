@@ -28,9 +28,14 @@ struct Vertex {
     float textureX, textureY;
 };
 
+struct Vertex2D {
+    float x, y, z;
+    float textureX, textureY;
+};
+
 struct PlaceHolderObject {
     const char *name; //Name of Object to get texture path and model path.
-    int type; //Building or Entity
+    int type; //2D or 3D
     int textureType; //PNG or JPG,...
     int modelType;  //PMF OR EAF
     //OpenGL data
@@ -39,6 +44,7 @@ struct PlaceHolderObject {
     unsigned int EBO;
     int numVertices;
     struct Vertex *vertices;
+    struct Vertex2D *vertices2D;
     unsigned int numIndices;
     unsigned int *indices;
     GLuint textureBufferId;
@@ -57,6 +63,8 @@ int getObjectNumber(const char *name);
 void loadPMF(char* path, int objectNumber); //Loads PMF(Prometheus Model File) file, to be called by loadObjects
 
 void loadTexture(char* path, int objectNumber);
+
+void load2D(int objectNumber);
 
 void constructOpenGLData(int objectNumber);
 
