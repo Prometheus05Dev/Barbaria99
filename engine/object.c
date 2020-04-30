@@ -319,7 +319,6 @@ void drawObject(int objectNumber) {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, placeHolderObjectList[objectNumber].textureBufferId);
     glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, placeHolderObjectList[objectNumber].EBO);
     glDrawElements(GL_TRIANGLES, placeHolderObjectList[objectNumber].numIndices, GL_UNSIGNED_INT, 0);
 }
 

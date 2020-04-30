@@ -28,6 +28,7 @@ int main() {
         gameResetGL();
         //rotateAddObject(market, 1.0f, 1.0f, 0.0f, 0.0f);
         scaleObject(market, 10.0f, 10.0f, 10.0f);
+        rotateObject(market, -55.0f, 0.0f, 0.0f, 1.0f);
         //translateObject(market2, 0.01f, 0.01f, 0.01f);
         gameUpdate();
     }
