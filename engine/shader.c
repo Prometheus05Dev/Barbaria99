@@ -24,7 +24,8 @@ void readShaderDir() {
                     while(fragmentShaderDirEntry = readdir(fragmentShaderDir)) {
                         if(strcmp(fragmentShaderDirEntry->d_name, ".") && strcmp(fragmentShaderDirEntry->d_name, "..")) {
                             if(strncmp(vertexShaderDirEntry->d_name, fragmentShaderDirEntry->d_name, 2) == 0){
-                                char *tempString;
+                                char tempString[3];
+                                memset(tempString, '\0', sizeof(tempString));
                                 int tempNumber;
                                 strncpy(tempString, vertexShaderDirEntry->d_name,2);
                                 sscanf(tempString, "%d", &tempNumber);
@@ -95,6 +96,18 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath) {
     free(fullFragmentShaderPath);
     free(vertexShaderSource);
     free(fragmentShaderSource);
+}
+
+void setShader3D() {
+    mat4 projectionMatrix;
+    glm_perspective(45.0f, 1920.0f / 1080.0f, 0.1f, 100.0f, projectionMatrix);
+    passMatrixToShader(projectionMatrix, "projectionMatrix");
+}
+
+void setShader2D() {
+    mat4 orthogonalMatrix;
+    glm_ortho_default(1920.0f / 1080.0f, orthogonalMatrix);
+    passMatrixToShader(orthogonalMatrix, "projectionMatrix");
 }
 
 void bindShader(int id) {

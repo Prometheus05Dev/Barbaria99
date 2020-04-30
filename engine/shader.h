@@ -25,6 +25,10 @@ void createShaders(int id, char *vertexShaderPath, char *fragmentShaderPath);
 
 void bindShader(int id);
 
+void setShader3D();
+
+void setShader2D();
+
 void passMatrixToShader(mat4 matrix, const char *name);
 
 void freeShaders();

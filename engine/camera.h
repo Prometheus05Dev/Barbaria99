@@ -27,8 +27,6 @@ int notFirstMouseMovement;
 
 void initializeCamera();
 
-void setupDefaultMatrices();
-
 void updateCamera();
 
 void moveForward();

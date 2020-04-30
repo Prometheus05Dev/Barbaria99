@@ -7,7 +7,7 @@ void setupGameWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    gameWindow = glfwCreateWindow(1920, 1080, "Barbaria",glfwGetPrimaryMonitor(), NULL);
+    gameWindow = glfwCreateWindow(1920, 1080, "Barbaria", glfwGetPrimaryMonitor(), NULL);
     if(gameWindow == NULL) {
         printf("Creation of game window failed!");
         glfwTerminate();
