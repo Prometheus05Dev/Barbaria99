@@ -3,4 +3,6 @@
 
 extern float deltaTime;
 
+extern int gameMode;
+
 #endif //BARBARIA99_GLOBAL_VALUES_H

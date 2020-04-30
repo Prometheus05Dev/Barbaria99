@@ -14,10 +14,14 @@ void gameStart() {
 
 void gameSet2D() {
     setShader2D();
+    setWindow2D();
+    gameMode = 0;
 }
 
 void gameSet3D() {
     setShader3D();
+    setWindow3D();
+    gameMode = 1;
 }
 
 void gameBindShader(int id) {

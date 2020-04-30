@@ -19,17 +19,29 @@ void initializeCamera() {
 }
 
 void updateCamera() {
-    cameraFront[0] = cos(glm_rad(yaw)) * cos(glm_rad(pitch));
-    cameraFront[1] = sin(glm_rad(pitch));
-    cameraFront[2] = sin(glm_rad(yaw)) * cos(glm_rad(pitch));
-    glm_vec3_normalize(cameraFront);
-    glm_vec3_crossn(cameraFront, worldUp, cameraRight);
-    glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
-    vec3 temp;
-    glm_vec3_add(cameraPosition, cameraFront, temp);
-    glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
-    passMatrixToShader(viewMatrix, "viewMatrix");
-    movementSpeed = 2.5f * deltaTime;
+    if(gameMode == 1) {
+        cameraFront[0] = cos(glm_rad(yaw)) * cos(glm_rad(pitch));
+        cameraFront[1] = sin(glm_rad(pitch));
+        cameraFront[2] = sin(glm_rad(yaw)) * cos(glm_rad(pitch));
+        glm_vec3_normalize(cameraFront);
+        glm_vec3_crossn(cameraFront, worldUp, cameraRight);
+        glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
+        vec3 temp;
+        glm_vec3_add(cameraPosition, cameraFront, temp);
+        glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
+        passMatrixToShader(viewMatrix, "viewMatrix");
+        movementSpeed = 2.5f * deltaTime;
+    }
+    else if (gameMode == 0) {
+        vec3 temp;
+        glm_vec3_add(cameraPosition, cameraFront, temp);
+        glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
+        passMatrixToShader(viewMatrix, "viewMatrix");
+        movementSpeed = 2.5f * deltaTime;
+    }
+    else {
+        printf("A fatal error occurred at line 39 of camera.c!\n");
+    }
 }
 
 void moveForward() {
@@ -61,22 +73,30 @@ void strafeRight() {
 }
 
 void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
-    if(!notFirstMouseMovement) {
+    if(gameMode == 1) {
+        if(!notFirstMouseMovement) {
+            lastX = xpos;
+            lastY = ypos;
+            notFirstMouseMovement = 1;
+        }
+        xOffSet = xpos - lastX;
+        yOffSet = lastY - ypos;
         lastX = xpos;
         lastY = ypos;
-        notFirstMouseMovement = 1;
+        xOffSet *= mouseSensitivity;
+        yOffSet *= mouseSensitivity;
+        yaw += xOffSet;
+        pitch += yOffSet;
+        if(pitch > 89.0f)
+            pitch = 89.0f;
+        if(pitch < -89.0f)
+            pitch = -89.0f;
+        updateCamera();
     }
-    xOffSet = xpos - lastX;
-    yOffSet = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-    xOffSet *= mouseSensitivity;
-    yOffSet *= mouseSensitivity;
-    yaw += xOffSet;
-    pitch += yOffSet;
-    if(pitch > 89.0f)
-        pitch = 89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
-    updateCamera();
+    else if (gameMode == 0) {
+        updateCamera();
+    }
+    else {
+        printf("A fatal error occurred at line 96 of camera.c!\n");
+    }
 }

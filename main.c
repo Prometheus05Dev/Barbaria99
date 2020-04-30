@@ -1,12 +1,14 @@
 #include <stdio.h>
 #define STB_IMAGE_IMPLEMENTATION
+#include "global_values.h"
 #include "game/gameobject.h"
 #include "game.h"
-#include "global_values.h"
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 float currentFrame = 0.0f;
+
+int gameMode = 0.0f;
 
 int main() {
     printf("Hello, World!\n");

@@ -1,6 +1,7 @@
 #ifndef BARBARIA99_GAME_H
 #define BARBARIA99_GAME_H
 
+#include "global_values.h"
 #include "engine/shader.h"
 #include "engine/object.h"
 #include "engine/camera.h"

@@ -15,9 +15,7 @@ void setupGameWindow() {
     glViewport(0, 0, 1920, 1080);
     glfwMakeContextCurrent(gameWindow);
     glfwSetCursorPosCallback(gameWindow, processMouse);
-#ifdef _RUNTIME
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-#endif
 }
 
 void updateGameWindow() {
@@ -35,4 +33,12 @@ void processInput() {
         strafeLeft();
     if(glfwGetKey(gameWindow, GLFW_KEY_D) == GLFW_PRESS)
         strafeRight();
+}
+
+void setWindow3D() {
+    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void setWindow2D() {
+    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
