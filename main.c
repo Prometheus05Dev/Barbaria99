@@ -1,7 +1,5 @@
 #include <stdio.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "engine/object.h"
-#include <GLFW/glfw3.h>
 #include "game/gameobject.h"
 #include "game.h"
 #include "global_values.h"
