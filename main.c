@@ -15,25 +15,25 @@ int main() {
 
     gameStart();
 
-    int market = addGameObject(5.0f, 5.0f, 5.0f, "nils");
-    int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
-    rotateObject(market, 180.0f, 0.0f, 1.0f, 0.0f);
+    int market = addGameObject(0.0f, 0.0f, 0.0f, "nils");
+    //int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
+    //rotateObject(market, 180.0f, 0.0f, 1.0f, 0.0f);
 
     gameSet2D();
-    gameBindShader(1);
 
     while(!gameWindowShouldClose){
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         gameResetGL();
-        rotateAddObject(market, 1.0f, 1.0f, 0.0f, 0.0f);
-        translateObject(market2, 0.01f, 0.01f, 0.01f);
+        //rotateAddObject(market, 1.0f, 1.0f, 0.0f, 0.0f);
+        scaleObject(market, 10.0f, 10.0f, 10.0f);
+        //translateObject(market2, 0.01f, 0.01f, 0.01f);
         gameUpdate();
     }
 
     removeGameObject(market);
-    removeGameObject(market2);
+    //removeGameObject(market2);
     gameFree();
 
     return 0;

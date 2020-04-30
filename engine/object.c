@@ -235,7 +235,7 @@ void loadPMF(char* path, int objectNumber) {
 }
 
 void load2D(int objectNumber) {
-    printf("Loading object in 2D with number: %d \n", objectNumber);
+    printf("Loading object: %s in 2D with number: %d \n", &placeHolderObjectList[objectNumber].name, objectNumber);
     placeHolderObjectList[objectNumber].vertices2D = malloc(4 * sizeof(struct Vertex2D));
     struct Vertex2D quadVertexOne = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     struct Vertex2D quadVertexTwo = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
@@ -254,6 +254,7 @@ void load2D(int objectNumber) {
     placeHolderObjectList[objectNumber].indices[4] = 3;
     placeHolderObjectList[objectNumber].indices[5] = 2;
     placeHolderObjectList[objectNumber].numVertices = 4;
+    constructOpenGLData(objectNumber);
 }
 
 void loadTexture(char* path, int objectNumber) {
@@ -282,6 +283,7 @@ void constructOpenGLData(int objectNumber) {
     glBindVertexArray(placeHolderObjectList[objectNumber].VAO);
     glBindBuffer(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].VBO);
     if(placeHolderObjectList[objectNumber].type == 0) {
+        bindShader(1);
         glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex), &placeHolderObjectList[objectNumber].vertices[0], GL_DYNAMIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
         glEnableVertexAttribArray(0);
@@ -305,6 +307,14 @@ void constructOpenGLData(int objectNumber) {
 }
 
 void drawObject(int objectNumber) {
+    if(placeHolderObjectList[objectNumber].type == 0) {
+        bindShader(1);
+        setShader3D();
+    }
+    if(placeHolderObjectList[objectNumber].type == 1) {
+        bindShader(2);
+        setShader2D();
+    }
     passMatrixToShader(placeHolderObjectList[objectNumber].modelMatrix, "modelMatrix");
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, placeHolderObjectList[objectNumber].textureBufferId);

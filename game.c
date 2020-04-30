@@ -30,6 +30,7 @@ void gameBindShader(int id) {
 
 void gameUpdate() {
     updateGameObjects();
+    updateCamera();
     updateGameWindow();
     glfwPollEvents();
     processInput();
