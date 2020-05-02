@@ -105,9 +105,9 @@ void setShader3D() {
 }
 
 void setShader2D() {
-    mat4 orthogonalMatrix;
-    glm_ortho_default(1920.0f / 1080.0f, orthogonalMatrix);
-    passMatrixToShader(orthogonalMatrix, "projectionMatrix");
+    mat4 projectionMatrix;
+    glm_perspective(45.0f, 1920.0f / 1080.0f, 0.1f, 100.0f, projectionMatrix);
+    passMatrixToShader(projectionMatrix, "projectionMatrix");
 }
 
 void bindShader(int id) {

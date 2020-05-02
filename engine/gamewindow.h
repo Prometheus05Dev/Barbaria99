@@ -5,8 +5,11 @@
 #include <stdio.h>
 #include "camera.h"
 #include <GLFW/glfw3.h>
+#include "../game.h"
 
 extern int gameWindowShouldClose;
+
+int mode;
 
 GLFWwindow *gameWindow;
 

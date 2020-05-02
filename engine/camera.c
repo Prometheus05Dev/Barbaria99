@@ -33,6 +33,9 @@ void updateCamera() {
         movementSpeed = 2.5f * deltaTime;
     }
     else if (gameMode == 0) {
+        glm_vec3_normalize(cameraFront);
+        glm_vec3_crossn(cameraFront, worldUp, cameraRight);
+        glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
         vec3 temp;
         glm_vec3_add(cameraPosition, cameraFront, temp);
         glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
