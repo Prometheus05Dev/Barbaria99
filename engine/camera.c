@@ -36,26 +36,54 @@ void updateCamera() {
 }
 
 void moveForward() {
-    cameraPosition[0] += cameraFront[0] * movementSpeed;
-    cameraPosition[2] += cameraFront[2] * movementSpeed;
+    if(gameMode == 0) {
+        cameraPosition[0] += cameraFront[0] * movementSpeed;
+        cameraPosition[2] += cameraFront[2] * movementSpeed;
+    }
+    else if(gameMode == 1) {
+        glm_vec3_scale(cameraFront, movementSpeed, cameraFront);
+        glm_vec3_add(cameraPosition, cameraFront, cameraPosition);
+    }
     updateCamera();
 }
 
 void moveBackward() {
-    cameraPosition[0] -= cameraFront[0] * movementSpeed;
-    cameraPosition[2] -= cameraFront[2] * movementSpeed;
+    if(gameMode == 0) {
+        cameraPosition[0] -= cameraFront[0] * movementSpeed;
+        cameraPosition[2] -= cameraFront[2] * movementSpeed;
+    }
+    else if(gameMode == 1) {
+        glm_vec3_scale(cameraFront, movementSpeed, cameraFront);
+        glm_vec3_sub(cameraPosition, cameraFront, cameraPosition);
+    }
     updateCamera();
 }
 
 void strafeLeft() {
-    cameraPosition[0] -= cameraRight[0] * movementSpeed;
-    cameraPosition[2] -= cameraRight[2] * movementSpeed;
+    if(gameMode == 0) {
+        cameraPosition[0] -= cameraRight[0] * movementSpeed;
+        cameraPosition[2] -= cameraRight[2] * movementSpeed;
+    }
+    else if(gameMode == 1) {
+        vec3 temp;
+        glm_vec3_crossn(cameraFront, cameraUp, temp);
+        glm_vec3_scale(temp, movementSpeed, temp);
+        glm_vec3_sub(cameraPosition, temp, cameraPosition);
+    }
     updateCamera();
 }
 
 void strafeRight() {
-    cameraPosition[0] += cameraRight[0] * movementSpeed;
-    cameraPosition[2] += cameraRight[2] * movementSpeed;
+    if(gameMode == 0) {
+        cameraPosition[0] += cameraRight[0] * movementSpeed;
+        cameraPosition[2] += cameraRight[2] * movementSpeed;
+    }
+    else if(gameMode == 1) {
+        vec3 temp;
+        glm_vec3_crossn(cameraFront, cameraUp, temp);
+        glm_vec3_scale(temp, movementSpeed, temp);
+        glm_vec3_add(cameraPosition, temp, cameraPosition);
+    }
     updateCamera();
 }
 
