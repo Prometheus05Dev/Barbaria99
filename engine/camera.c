@@ -19,7 +19,6 @@ void initializeCamera() {
 }
 
 void updateCamera() {
-   //YEET if(gameMode == 1) {
         cameraFront[0] = cos(glm_rad(yaw)) * cos(glm_rad(pitch));
         cameraFront[1] = sin(glm_rad(pitch));
         cameraFront[2] = sin(glm_rad(yaw)) * cos(glm_rad(pitch));
@@ -31,23 +30,9 @@ void updateCamera() {
         vec3 temp;
         glm_vec3_add(cameraPosition, cameraFront, temp);
         glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
-    //WTF IS THIS \/ Pls remove and make a getViewMatrix() wich calcs the lookAt and gets called once or proffessor rework will come back and s gonna thank you for playing his game, so long kinga bowser!
+        //TODO: getViewMatrix
         passMatrixToShader(viewMatrix, "viewMatrix");
-        movementSpeed = 2.5f * deltaTime;
-   //YEET }
-   //YEET else if (gameMode == 0) {
-   //YEET     glm_vec3_normalize(cameraFront);
-   //YEET     glm_vec3_crossn(cameraFront, worldUp, cameraRight);
-   //YEET     glm_vec3_crossn(cameraRight, cameraFront, cameraUp);
-   //YEET     vec3 temp;
-   //YEET     glm_vec3_add(cameraPosition, cameraFront, temp);
-   //YEET     glm_lookat(cameraPosition, temp, cameraUp, viewMatrix);
-   //YEET     passMatrixToShader(viewMatrix, "viewMatrix");
-   //YEET     movementSpeed = 2.5f * deltaTime;
-   //YEET }
-   //YEET else {
-   //YEET     printf("A fatal error occurred at line 39 of camera.c!\n");
-   //YEET }
+        movementSpeed = 10.0f * deltaTime;
 }
 
 void moveForward() {
@@ -75,7 +60,7 @@ void strafeRight() {
 }
 
 void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
-   //YOULL NEED IT ANYWAYS MATE if(gameMode == 1) {
+   if(gameMode == 1) {
         if(!notFirstMouseMovement) {
             lastX = xpos;
             lastY = ypos;
@@ -94,11 +79,13 @@ void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
         if(pitch < -89.0f)
             pitch = -89.0f;
         updateCamera();
-   //YEET }
-   //YEET else if (gameMode == 0) {
-   //YEET     updateCamera();
-   //YEET }
-   //YEET else {
-   //NO U     printf("A fatal error occurred at line 96 of camera.c!\n");
-   //YEET }
+   }
+   else if (gameMode == 0) {
+        pitch = -45.0f;
+        yaw = 0.0f;
+        updateCamera();
+   }
+   else {
+   printf("A fatal error occurred at line 96 of camera.c!\n");
+   }
 }
