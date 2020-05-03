@@ -15,9 +15,8 @@ int main() {
 
     gameStart();
 
-    int market = addGameObject(0.0f, 0.0f, 0.0f, "stall");
+    int market = addGameObject(0.0f, 0.0f, 0.0f, "nils");
     //int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
-    rotateObject(market, -90.0f, 1.0f, 0.0f, 0.0f);
 
     gameSet2D();
 

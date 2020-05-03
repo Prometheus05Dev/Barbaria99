@@ -76,6 +76,9 @@ int addGameObject(float x, float y, float z, const char* name) {
     gameObjectList[gameObjectCount - 1].object[0].rotationTempX = 0.0f;
     gameObjectList[gameObjectCount - 1].object[0].rotationTempY = 0.0f;
     gameObjectList[gameObjectCount - 1].object[0].rotationTempZ = 0.0f;
+    if(placeHolderObjectList[gameObjectList[gameObjectCount - 1].object[0].objectID].type == 1) {
+        rotateObject(gameObjectCount, -90.0f, 1.0f, 0.0f, 0.0f);
+    }
     return gameObjectCount;
 }
 
