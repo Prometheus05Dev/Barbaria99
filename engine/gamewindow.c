@@ -33,6 +33,10 @@ void processInput() {
         strafeLeft();
     if(glfwGetKey(gameWindow, GLFW_KEY_D) == GLFW_PRESS)
         strafeRight();
+    if(glfwGetKey(gameWindow, GLFW_KEY_Q) == GLFW_PRESS)
+        rotateLeft();
+    if(glfwGetKey(gameWindow, GLFW_KEY_E) == GLFW_PRESS)
+        rotateRight();
 }
 
 void setWindow3D() {

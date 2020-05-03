@@ -37,6 +37,10 @@ void strafeLeft();
 
 void strafeRight();
 
+void rotateLeft();
+
+void rotateRight();
+
 void processMouse(GLFWwindow* placeholder, double xpos, double ypos);
 
 #endif //BARBARIA99_CAMERA_H

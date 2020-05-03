@@ -87,6 +87,14 @@ void strafeRight() {
     updateCamera();
 }
 
+void rotateLeft() {
+    yaw -= 1.0f;
+}
+
+void rotateRight() {
+    yaw += 1.0f;
+}
+
 void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
    if(gameMode == 1) {
         if(!notFirstMouseMovement) {
@@ -114,6 +122,6 @@ void processMouse(GLFWwindow* placeholder, double xpos, double ypos) {
         updateCamera();
    }
    else {
-   printf("A fatal error occurred at line 96 of camera.c!\n");
+    printf("A fatal error occurred at line 96 of camera.c!\n");
    }
 }
