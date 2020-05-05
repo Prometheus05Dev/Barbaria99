@@ -11,6 +11,8 @@ extern int gameWindowShouldClose;
 
 int mode;
 
+float fov;
+
 GLFWwindow *gameWindow;
 
 void setupGameWindow();
@@ -22,5 +24,7 @@ void setWindow3D();
 void setWindow2D();
 
 void processInput();
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 #endif //BARBARIA99_GAMEWINDOW_H

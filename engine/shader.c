@@ -1,5 +1,7 @@
 #include "shader.h"
 
+float fov2D = 45.0f;
+
 void readShaderDir() {
 
     int shaderCount = 0;
@@ -106,13 +108,25 @@ void setShader3D() {
 
 void setShader2D() {
     mat4 projectionMatrix;
-    glm_perspective(45.0f, 1920.0f / 1080.0f, 0.1f, 100.0f, projectionMatrix);
+    glm_perspective(fov2D, 1920.0f / 1080.0f, 0.1f, 100.0f, projectionMatrix);
     passMatrixToShader(projectionMatrix, "projectionMatrix");
 }
 
 void bindShader(int id) {
     glUseProgram(shaderList[id-1].shaderProgram);
     currentShader = shaderList[id-1].shaderProgram;
+}
+
+void setFov(float fov) {
+    if(gameMode == 0) {
+        mat4 projectionMatrix;
+        glm_perspective(fov, 1920.0f / 1080.0f, 1.0f, 10.0f, projectionMatrix);
+        passMatrixToShader(projectionMatrix, "projectionMatrix");
+        fov2D = fov;
+     }
+    else {
+        printf("Can not set FOV, 3D Mode!\n");
+    }
 }
 
 void freeShaders() {

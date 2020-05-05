@@ -2,6 +2,8 @@
 
 int gameWindowShouldClose = 0;
 
+float fov = 45.0f;
+
 void setupGameWindow() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
@@ -15,6 +17,7 @@ void setupGameWindow() {
     glViewport(0, 0, 1920, 1080);
     glfwMakeContextCurrent(gameWindow);
     glfwSetCursorPosCallback(gameWindow, processMouse);
+    glfwSetScrollCallback(gameWindow, scroll_callback);
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
@@ -37,6 +40,19 @@ void processInput() {
         rotateLeft();
     if(glfwGetKey(gameWindow, GLFW_KEY_E) == GLFW_PRESS)
         rotateRight();
+}
+
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
+    if(fov >= 40.0f && fov <= 45.0f) {
+        fov -= (float)yoffset / 20.0f;
+    }
+    else if(fov <= 40.0f) {
+        fov = 40.1f;
+    }
+    else if(fov >= 45.0f) {
+        fov = 44.9f;
+    }
+    setFov(fov);
 }
 
 void setWindow3D() {

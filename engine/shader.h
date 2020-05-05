@@ -5,6 +5,7 @@
 #include <prometheusgamelib.h>
 #include <GL/glew.h>
 #include <cglm/cglm.h>
+#include "../global_values.h"
 
 char *vertexShadersPath;
 char *fragmentShadersPath;
@@ -15,6 +16,8 @@ struct Shader {
 };
 
 int currentShader;
+
+float fov2D;
 
 struct Shader *shaderList;
 
@@ -28,6 +31,8 @@ void bindShader(int id);
 void setShader3D();
 
 void setShader2D();
+
+void setFov(float fov);
 
 void passMatrixToShader(mat4 matrix, const char *name);
 

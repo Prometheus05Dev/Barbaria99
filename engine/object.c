@@ -241,7 +241,7 @@ void load2D(int objectNumber) {
     struct Vertex2D quadVertexTwo = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
     struct Vertex2D quadVertexThree = {1.0f, 1.0f, 0.0f, 1.0f, 1.0f};
     struct Vertex2D quadVertexFour = {0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
-    placeHolderObjectList[objectNumber].vertices2D[0] = quadVertexOne;
+    placeHolderObjectList [objectNumber].vertices2D[0] = quadVertexOne;
     placeHolderObjectList[objectNumber].vertices2D[1] = quadVertexTwo;
     placeHolderObjectList[objectNumber].vertices2D[2] = quadVertexThree;
     placeHolderObjectList[objectNumber].vertices2D[3] = quadVertexFour;
