@@ -16,7 +16,8 @@ int main() {
     gameStart();
 
     //int market = addGameObject(0.0f, 0.0f, 0.0f, "stall");
-    int city = addGameObject(0.0f, 0.00f, 0.0f, "city");
+    int city = addGameObject(1.0f, 0.0f, -1.0f, "city");
+    int terrain = addGameObject(0.0f, 0.0f, 0.0f, "nils");
     //int market2 = addGameObject(-5.0f, -5.0f, -5.0f, "stall");
 
     gameSet2D();

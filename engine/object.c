@@ -90,7 +90,7 @@ void loadObjects() {
                         if(placeHolderObjectList[i].type == 0) {
                             loadPMF(combineStrings(modelDirectory, modelDirEntry->d_name), i);
                         }
-                        if(placeHolderObjectList[i].type == 1) {
+                        if(placeHolderObjectList[i].type == 1 || placeHolderObjectList[i].type == 2) {
                             load2D(i);
                         }
                     }
@@ -292,7 +292,7 @@ void constructOpenGLData(int objectNumber) {
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
         glEnableVertexAttribArray(2);
     }
-    else if(placeHolderObjectList[objectNumber].type == 1) {
+    else if(placeHolderObjectList[objectNumber].type == 1 || placeHolderObjectList[objectNumber].type == 2) {
         glBufferData(GL_ARRAY_BUFFER, placeHolderObjectList[objectNumber].numVertices * sizeof(struct Vertex2D), &placeHolderObjectList[objectNumber].vertices2D[0], GL_DYNAMIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex2D), (void*)0);
         glEnableVertexAttribArray(0);
@@ -311,7 +311,7 @@ void drawObject(int objectNumber) {
         bindShader(1);
         setShader3D();
     }
-    if(placeHolderObjectList[objectNumber].type == 1) {
+    if(placeHolderObjectList[objectNumber].type == 1 || placeHolderObjectList[objectNumber].type == 2) {
         bindShader(2);
         setShader2D();
     }
