@@ -43,14 +43,14 @@ void processInput() {
 }
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
-    if(fov >= 40.0f && fov <= 45.0f) {
-        fov -= (float)yoffset / 20.0f;
+    if(fov > 44.25f && fov < 45.3) {
+        fov -= yoffset / 30.0f;
     }
-    else if(fov <= 40.0f) {
-        fov = 40.1f;
+    else if(fov <= 44.25f) {
+        fov = 44.26f;
     }
-    else if(fov >= 45.0f) {
-        fov = 44.9f;
+    else if(fov >= 45.3f) {
+        fov = 45.29f;
     }
     setFov(fov);
 }
